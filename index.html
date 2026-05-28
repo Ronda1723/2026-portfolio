@@ -3,195 +3,318 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rounak Lenka — Building voice & memory systems</title>
+  <title>Rounak Lenka — Building voice & memory.</title>
   <meta name="description" content="Rounak Lenka — founder & builder. Voice AI, agentic memory, polished consumer software." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Theme: respect saved → fallback to system. Done inline to avoid FOUC.
+    (function(){
+      var saved = localStorage.getItem('theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      var t = saved || sys;
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>
 <body>
 
 <header class="topbar">
   <a href="#top" class="mark" aria-label="Top">RL</a>
-  <nav class="navlinks">
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#thinking">Thinking</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <div class="topbar-right">
+    <span class="topbar-tag">Rounak Lenka — Building voice &amp; memory.</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" fill="currentColor"/>
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="12" y1="2" x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2" y1="12" x2="5" y2="12"/>
+          <line x1="19" y1="12" x2="22" y2="12"/>
+          <line x1="4.5" y1="4.5" x2="6.6" y2="6.6"/>
+          <line x1="17.4" y1="17.4" x2="19.5" y2="19.5"/>
+          <line x1="4.5" y1="19.5" x2="6.6" y2="17.4"/>
+          <line x1="17.4" y1="6.6" x2="19.5" y2="4.5"/>
+        </g>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
 </header>
 
 <main id="top">
 
-<!-- 01 HERO -->
-<section class="hero section">
-  <div class="section-index">01 — Hello</div>
-  <h1 class="hero-title">
-    To build, to ship, &amp; to make
-    <em>quiet software</em> that feels alive in your hands.
-  </h1>
-  <div class="hero-meta">
-    <div>
-      <div class="label">Currently</div>
-      <div>Founder &amp; builder at <a class="inline" href="https://uxie.ai" target="_blank" rel="noopener">Uxie</a> · ex-<a class="inline" href="https://smallest.ai" target="_blank" rel="noopener">Smallest.ai</a></div>
+  <!-- 01 INDEX -->
+  <section class="section section-hero">
+    <div class="section-head">
+      <span class="section-no">01</span>
+      <span class="section-name">Index — 2026</span>
     </div>
-    <div>
-      <div class="label">Based</div>
-      <div>India · working globally</div>
-    </div>
-    <div>
-      <div class="label">Since</div>
-      <div>2026 — making things every day</div>
-    </div>
-  </div>
 
-  <div class="hero-grid" aria-hidden="true">
-    <div class="cell c1"><span>VOICE</span></div>
-    <div class="cell c2"><span>MEMORY</span></div>
-    <div class="cell c3"><span>LATENCY</span></div>
-    <div class="cell c4"><span>TASTE</span></div>
-    <div class="cell c5"><span>SHIP</span></div>
-    <div class="cell c6"><span>REPEAT</span></div>
-  </div>
-</section>
+    <div class="hero-name">Rounak Lenka</div>
+    <div class="hero-current">Currently — building <em>Uxie</em> &amp; <em>Company Brain</em> from India.</div>
 
-<!-- 02 ABOUT -->
-<section id="about" class="section about">
-  <div class="section-index">02 — About</div>
-  <div class="two-col">
-    <div>
-      <h2>The short version.</h2>
-      <p>I build polished consumer-grade software with AI underneath. I care about <em>latency</em>, <em>taste</em>, and the small details that make a tool feel like a thing — not a demo.</p>
-      <p>Right now I'm building <strong>Uxie</strong>, a voice-to-text app for Mac &amp; Windows, and <strong>Company Brain</strong>, a per-employee memory layer that lives in Slack.</p>
-      <p>Before that I was at <strong>Smallest.ai</strong> working on real-time voice infrastructure. Most of what I do sits at the intersection of speech, agents, and the human bits in between.</p>
-    </div>
-    <div class="aside">
-      <div class="kv"><span>Stack</span><span>TypeScript, Python, Swift, Tauri, FastAPI, Deepgram, OpenAI</span></div>
-      <div class="kv"><span>Obsessions</span><span>sub-300ms streaming, AppKit polish, Slack-native UX</span></div>
-      <div class="kv"><span>Off the clock</span><span>3D portfolios in Blender, side experiments, espresso</span></div>
-    </div>
-  </div>
-</section>
+    <h1 class="hero-statement">
+      To build &amp; to ship &amp; to make <em>quiet software</em> that inspires the way we talk to our machines.
+    </h1>
 
-<!-- 03 WORK -->
-<section id="work" class="section work">
-  <div class="section-index">03 — Selected work</div>
-
-  <article class="project">
-    <div class="project-head">
-      <div class="project-no">01</div>
-      <div>
-        <h3>Uxie <span class="years">2026 —</span></h3>
-        <p class="tag">Voice-first writing for Mac &amp; Windows</p>
-      </div>
-      <a class="cta" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie ↗</a>
+    <div class="hero-grid" aria-hidden="true">
+      <div class="cell"><span>01</span><em>voice</em></div>
+      <div class="cell"><span>02</span><em>memory</em></div>
+      <div class="cell"><span>03</span><em>latency</em></div>
+      <div class="cell"><span>04</span><em>taste</em></div>
+      <div class="cell"><span>05</span><em>ship</em></div>
+      <div class="cell"><span>06</span><em>repeat</em></div>
     </div>
-    <p class="body">
-      Press a key, speak, and clean text appears anywhere you type. Streaming Deepgram Nova-3 with interim transcripts, dispatch-on-release, and a key cache that make it feel <em>instant</em>. Ships as a signed DMG and EXE under one version.
+
+    <div class="hero-meta">
+      <div><div class="label">Role</div><div>Founder &amp; builder, <a class="inline" href="https://uxie.ai" target="_blank" rel="noopener">Uxie</a></div></div>
+      <div><div class="label">Where</div><div>India · working globally</div></div>
+      <div><div class="label">Since</div><div>2024 — making things every day</div></div>
+    </div>
+  </section>
+
+  <!-- 02 MANIFESTO -->
+  <section class="section section-manifesto">
+    <div class="section-head">
+      <span class="section-no">02</span>
+      <span class="section-name">Manifesto</span>
+    </div>
+
+    <p class="manifesto">
+      I believe in building tools that <em>respect your attention</em> and <em>remember</em> what matters. Voice is not a chatbot with a mic — it's a different posture toward software. Memory is not a context window — it's the thing that makes a tool feel like it knows you.
     </p>
-    <div class="metrics">
-      <div><strong>~300ms</strong><span>perceived latency</span></div>
-      <div><strong>Mac + Win</strong><span>parity from day one</span></div>
-      <div><strong>v1.0.12+</strong><span>shipping continuously</span></div>
-    </div>
-  </article>
+    <p class="manifesto-sign">Rounak, signing off — from a small desk that taught a kid to ship loudly.</p>
+  </section>
 
-  <article class="project">
-    <div class="project-head">
-      <div class="project-no">02</div>
-      <div>
-        <h3>Company Brain <span class="years">2026 —</span></h3>
-        <p class="tag">A per-employee brain, native to Slack</p>
+  <!-- 03 SELECTED WORK -->
+  <section class="section section-work">
+    <div class="section-head">
+      <span class="section-no">03</span>
+      <span class="section-name">Selected Work</span>
+    </div>
+    <h2 class="section-title">What I built. <em>One thread — voice &amp; memory.</em></h2>
+    <p class="section-sub">From milliseconds shaved off speech pipelines to a brain that lives in Slack. Drag, scroll, or use arrow keys.</p>
+
+    <div class="rail-wrap">
+      <div class="rail" id="rail" tabindex="0" aria-label="Selected work carousel">
+
+        <article class="card">
+          <div class="card-icon">◉</div>
+          <div class="card-no">01</div>
+          <h3 class="card-title">Uxie</h3>
+          <div class="card-role">Founder &amp; builder</div>
+          <p class="card-body">Press a key, speak, &amp; clean text appears anywhere you type. Streaming <strong>Deepgram Nova‑3</strong> with interim transcripts &amp; dispatch‑on‑release. Ships signed for <strong>Mac &amp; Windows</strong>, same version, same day.</p>
+          <div class="card-stat"><strong>~300ms</strong> perceived latency · <strong>v1.0.12+</strong> shipping</div>
+          <a class="card-link" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">✦</div>
+          <div class="card-no">02</div>
+          <h3 class="card-title">Company Brain</h3>
+          <div class="card-role">Founder &amp; builder</div>
+          <p class="card-body">A per‑employee brain, native to Slack. Six wedge use cases, picked carefully. Local agent in P1, <strong>MCP day one</strong>, voice intentionally left out of v1. Not a chatbot — a brain.</p>
+          <div class="card-stat"><strong>Slack‑first</strong> · <strong>MCP‑native</strong> · private by default</div>
+          <a class="card-link" href="#contact">Get early access ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">◐</div>
+          <div class="card-no">03</div>
+          <h3 class="card-title">Smallest.ai</h3>
+          <div class="card-role">Real‑time voice infra</div>
+          <p class="card-body">Worked on the unglamorous plumbing that makes voice agents not feel like a phone tree. TTS, STT, WebSockets, jitter buffers, cutting milliseconds. Production voice at scale.</p>
+          <div class="card-stat">Realtime pipelines · sub‑second response · production scale</div>
+          <a class="card-link" href="https://smallest.ai" target="_blank" rel="noopener">Visit Smallest ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">◇</div>
+          <div class="card-no">04</div>
+          <h3 class="card-title">Side things</h3>
+          <div class="card-role">Always shipping</div>
+          <p class="card-body">A SpaceX‑themed voice‑commanded <strong>3D portfolio</strong> with a Blender MCP bridge. Tiny tools that test ideas before they become products. The best ones graduate.</p>
+          <div class="card-stat">In the workshop · 2025 — now</div>
+          <span class="card-link muted">Polaroids only</span>
+        </article>
+
       </div>
-      <a class="cta" href="#contact">Get early access ↗</a>
-    </div>
-    <p class="body">
-      A memory layer for teams: meetings, threads, docs, and a local agent that knows your context. Slack-first, MCP day one, voice intentionally left out of v1. Six wedge use cases, picked carefully — not a chatbot, a brain.
-    </p>
-    <div class="metrics">
-      <div><strong>Slack-first</strong><span>where work already happens</span></div>
-      <div><strong>MCP-native</strong><span>plug into any agent</span></div>
-      <div><strong>Private</strong><span>per-employee scope</span></div>
-    </div>
-  </article>
-
-  <article class="project">
-    <div class="project-head">
-      <div class="project-no">03</div>
-      <div>
-        <h3>Smallest.ai <span class="years">2024 — 2026</span></h3>
-        <p class="tag">Real-time voice infrastructure</p>
+      <div class="rail-controls" aria-hidden="true">
+        <button class="rail-btn" data-dir="-1" aria-label="Previous">←</button>
+        <button class="rail-btn" data-dir="1" aria-label="Next">→</button>
       </div>
-      <a class="cta" href="https://smallest.ai" target="_blank" rel="noopener">Visit Smallest ↗</a>
     </div>
-    <p class="body">
-      Worked on real-time speech systems — TTS, STT pipelines, and the unglamorous plumbing that makes voice agents not feel like a phone tree. Lots of WebSocket, lots of jitter buffers, lots of cutting milliseconds.
-    </p>
-    <div class="metrics">
-      <div><strong>Realtime</strong><span>streaming voice pipelines</span></div>
-      <div><strong>Production</strong><span>voice agents at scale</span></div>
-      <div><strong>Infra</strong><span>the boring fast parts</span></div>
+  </section>
+
+  <!-- 04 RECOGNITION / SHIPPING LOG -->
+  <section class="section section-recog">
+    <div class="section-head">
+      <span class="section-no">04</span>
+      <span class="section-name">Shipping Log</span>
     </div>
-  </article>
+    <h2 class="section-title">Small marks on the wall.</h2>
 
-  <article class="project">
-    <div class="project-head">
-      <div class="project-no">04</div>
-      <div>
-        <h3>Side things <span class="years">always</span></h3>
-        <p class="tag">3D portfolios, MCP bridges, weekend builds</p>
-      </div>
-      <span class="cta muted">In the workshop</span>
+    <ul class="recog">
+      <li>
+        <div class="recog-name">Uxie v1.0</div>
+        <div class="recog-sub">Mac + Windows, signed &amp; notarized</div>
+        <div class="recog-year">2026</div>
+      </li>
+      <li>
+        <div class="recog-name">Company Brain — kickoff</div>
+        <div class="recog-sub">Vision v4, Slack‑first, MCP day one</div>
+        <div class="recog-year">2026</div>
+      </li>
+      <li>
+        <div class="recog-name">Smallest.ai</div>
+        <div class="recog-sub">Real‑time voice infra at production scale</div>
+        <div class="recog-year">2024 — 2026</div>
+      </li>
+      <li>
+        <div class="recog-name">SpaceX 3D portfolio</div>
+        <div class="recog-sub">Voice‑commanded · Blender MCP bridge</div>
+        <div class="recog-year">2025</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 05 WRITING -->
+  <section class="section section-writing">
+    <div class="section-head">
+      <span class="section-no">05</span>
+      <span class="section-name">Writing</span>
     </div>
-    <p class="body">
-      A SpaceX-themed voice-commanded 3D portfolio with a Blender MCP bridge. Tiny tools that test ideas before they become products. The best ones graduate; the rest stay as Polaroids.
-    </p>
-  </article>
-</section>
+    <h2 class="section-title">In notes &amp; in margins.</h2>
+    <p class="section-sub">A few pieces — from latency obsessions to thoughts on what makes voice products feel alive instead of useful.</p>
 
-<!-- 04 THINKING -->
-<section id="thinking" class="section thinking">
-  <div class="section-index">04 — Things I believe</div>
-  <ol class="beliefs">
-    <li><span>i.</span> Latency is a feature. Most of the magic happens under 300ms.</li>
-    <li><span>ii.</span> Voice is not a chatbot with a mic. It's a different posture toward software.</li>
-    <li><span>iii.</span> Ship the Mac and the Windows build together. Half-shipped is unshipped.</li>
-    <li><span>iv.</span> Tests on every change. Plan before code. Ask after the second stuck attempt.</li>
-    <li><span>v.</span> Memory beats prompts. The interesting AI products are the ones that <em>remember</em>.</li>
-  </ol>
-</section>
+    <ul class="writing">
+      <li>
+        <span class="writing-num">i.</span>
+        <span class="writing-body">Latency is a feature. Most of the magic happens under 300ms.</span>
+      </li>
+      <li>
+        <span class="writing-num">ii.</span>
+        <span class="writing-body">Voice is not a chatbot with a mic — it's a different posture toward software.</span>
+      </li>
+      <li>
+        <span class="writing-num">iii.</span>
+        <span class="writing-body">Ship the Mac and the Windows build together. Half‑shipped is unshipped.</span>
+      </li>
+      <li>
+        <span class="writing-num">iv.</span>
+        <span class="writing-body">Memory beats prompts. The interesting AI products are the ones that <em>remember</em>.</span>
+      </li>
+      <li>
+        <span class="writing-num">v.</span>
+        <span class="writing-body">Plan before code. Tests on every change. Ask after the second stuck attempt.</span>
+      </li>
+    </ul>
+  </section>
 
-<!-- 05 CONTACT -->
-<section id="contact" class="section contact">
-  <div class="section-index">05 — Say hello</div>
-  <h2 class="big">If you're building in voice, memory, or quiet AI tooling — <em>let's talk</em>.</h2>
-  <div class="contact-grid">
-    <a href="mailto:rounak@smallest.ai">rounak@smallest.ai ↗</a>
-    <a href="https://x.com/" target="_blank" rel="noopener">X / Twitter ↗</a>
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a href="https://github.com/Ronda1723" target="_blank" rel="noopener">GitHub ↗</a>
-  </div>
-</section>
+  <!-- 06 OFF THE CLOCK -->
+  <section class="section section-off">
+    <div class="section-head">
+      <span class="section-no">06</span>
+      <span class="section-name">Off the Clock</span>
+    </div>
+    <h2 class="section-title">Sometimes I close the laptop — &amp; build something useless instead.</h2>
+
+    <div class="off-grid">
+      <div class="off-card"><span>3D</span><em>Blender + MCP</em></div>
+      <div class="off-card"><span>☕</span><em>espresso</em></div>
+      <div class="off-card"><span>♪</span><em>long walks</em></div>
+    </div>
+
+    <p class="off-body">You'll find me building weekend tools, reading about interfaces, and trying to make small software feel like a craft. I'm a firm believer that taste compounds — the tiny details you sweat in v1 become the reason people stay in v3.</p>
+    <p class="off-body">I grew up curious, fell in love with shipping things at <strong>Smallest.ai</strong>, and now spend most days at the intersection of voice, agents, and the human bits in between.</p>
+  </section>
+
+  <!-- 07 CONTACT -->
+  <section id="contact" class="section section-contact">
+    <div class="section-head">
+      <span class="section-no">07</span>
+      <span class="section-name">Contact</span>
+    </div>
+    <h2 class="section-title big">Let's build something that <em>matters</em>.</h2>
+
+    <a class="contact-email" href="mailto:rounak@smallest.ai">rounak@smallest.ai →</a>
+
+    <p class="contact-body">Care about <strong>voice</strong>, <strong>memory</strong>, or making small software feel like a craft? You know where to find me.</p>
+
+    <div class="contact-foot">
+      <span>RL · India</span>
+      <span class="contact-socials">
+        <a href="https://github.com/Ronda1723" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://x.com/" target="_blank" rel="noopener">X ↗</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://uxie.ai" target="_blank" rel="noopener">Uxie ↗</a>
+      </span>
+    </div>
+  </section>
 
 </main>
 
 <footer class="footer">
-  <div>© 2026 Rounak Lenka. Built with care &amp; a little chaos.</div>
+  <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
   <div class="ver">v1.0 — editorial</div>
 </footer>
 
 <script>
-  // Subtle scroll reveal
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) {
+  // Theme toggle
+  (function(){
+    var btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  // Section fade-in
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
         e.target.classList.add('in');
         io.unobserve(e.target);
       }
-    }
+    });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.section, .project').forEach(el => io.observe(el));
+  document.querySelectorAll('.section').forEach(function(el){ io.observe(el); });
+
+  // Rail: drag-to-scroll + arrow keys + buttons
+  (function(){
+    var rail = document.getElementById('rail');
+    if (!rail) return;
+
+    var isDown = false, startX = 0, scrollStart = 0;
+    rail.addEventListener('mousedown', function(e){
+      isDown = true; startX = e.pageX; scrollStart = rail.scrollLeft;
+      rail.classList.add('drag');
+    });
+    window.addEventListener('mouseup', function(){ isDown = false; rail.classList.remove('drag'); });
+    window.addEventListener('mousemove', function(e){
+      if (!isDown) return;
+      rail.scrollLeft = scrollStart - (e.pageX - startX);
+    });
+
+    rail.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') rail.scrollBy({left: 360, behavior: 'smooth'});
+      if (e.key === 'ArrowLeft')  rail.scrollBy({left: -360, behavior: 'smooth'});
+    });
+
+    document.querySelectorAll('.rail-btn').forEach(function(b){
+      b.addEventListener('click', function(){
+        var d = parseInt(b.dataset.dir, 10) || 1;
+        rail.scrollBy({left: 360 * d, behavior: 'smooth'});
+      });
+    });
+  })();
 </script>
 
 </body>
