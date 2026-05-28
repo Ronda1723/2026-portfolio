@@ -279,6 +279,13 @@
 <div class="edit-bar" id="edit-bar" aria-hidden="true">
   <div class="edit-bar-inner">
     <span class="edit-status" id="edit-status">Editing — changes saved locally</span>
+    <div class="edit-controls">
+      <label class="edit-slider" title="Section spacing">
+        <span class="edit-slider-label">Spacing</span>
+        <input type="range" id="edit-pad" min="32" max="200" step="4" value="96">
+        <span class="edit-slider-val" id="edit-pad-val">96</span>
+      </label>
+    </div>
     <div class="edit-actions">
       <button class="edit-btn" id="edit-add-image" type="button">＋ Add image to tile</button>
       <button class="edit-btn" id="edit-reset" type="button">Reset</button>
@@ -362,6 +369,7 @@
 
     var IMAGE_TILES = '.cell, .off-card, .card .card-icon, .card .card-media';
     var STORAGE_KEY = 'portfolio:body-html:v1';
+    var PAD_KEY     = 'portfolio:section-pad:v1';
     var TILE_TARGET = null;
 
     var editToggle = document.getElementById('edit-toggle');
@@ -371,6 +379,26 @@
     var btnReset   = document.getElementById('edit-reset');
     var btnAddImg  = document.getElementById('edit-add-image');
     var fileInput  = document.getElementById('edit-file');
+    var padInput   = document.getElementById('edit-pad');
+    var padVal     = document.getElementById('edit-pad-val');
+
+    // Restore section padding on load
+    try {
+      var savedPad = localStorage.getItem(PAD_KEY);
+      if (savedPad) {
+        document.documentElement.style.setProperty('--section-pad', savedPad + 'px');
+        padInput.value = savedPad;
+        padVal.textContent = savedPad;
+      }
+    } catch(e){}
+
+    padInput.addEventListener('input', function(){
+      var v = padInput.value;
+      document.documentElement.style.setProperty('--section-pad', v + 'px');
+      padVal.textContent = v;
+      try { localStorage.setItem(PAD_KEY, v); } catch(e){}
+      editStatus.textContent = 'Spacing — ' + v + 'px (saved locally)';
+    });
 
     // Restore saved body innerHTML on load (only the <main>)
     try {
