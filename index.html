@@ -103,72 +103,74 @@
   </section>
 
   <!-- ===========================================================
-       03 SELECTED WORK  — EDIT: add/remove .card blocks
-       Each .card needs:
-         .card-media : <img> OR keep the .card-icon glyph
-         .card-no    : 01, 02, 03…
-         .card-title : project name
-         .card-role  : your role / one-liner
-         .card-body  : 2–3 sentence description
-         .card-stat  : metrics line
-         .card-link  : visit URL (or remove if private)
+       03 SELECTED WORK  — scroll-pinned horizontal section.
+       EDIT: add/remove .work-card blocks. The stage height
+       auto-scales to fit however many cards you have.
        =========================================================== -->
-  <section class="section section-work">
-    <div class="section-head">
-      <span class="section-no">03</span>
-      <span class="section-name">Selected Work</span>
-    </div>
-    <h2 class="section-title">What I built. <em>One thread — voice &amp; memory.</em></h2>
-    <p class="section-sub">From milliseconds shaved off speech pipelines to a brain that lives in Slack. Drag, scroll, or use arrow keys.</p>
+  <section class="section section-work no-pad-x" id="section-work">
+    <div class="work-stage" id="work-stage">
+      <div class="work-sticky">
+        <div class="work-row" id="work-row">
 
-    <div class="rail-wrap">
-      <div class="rail" id="rail" tabindex="0" aria-label="Selected work carousel">
+          <div class="work-intro">
+            <div class="section-head">
+              <span class="section-no">03</span>
+              <span class="section-name">Selected Work</span>
+            </div>
+            <h2 class="work-title"><em>What I built.</em><br><em>One thread —<br>voice &amp; memory.</em></h2>
+            <p class="section-sub">From milliseconds shaved off speech pipelines to a brain that lives in Slack. Keep scrolling.</p>
+            <div class="work-cue" aria-hidden="true">→</div>
+          </div>
 
-        <article class="card">
-          <!-- swap the icon for an image: <div class="card-media"><img src="images/uxie.png" alt="Uxie"></div> -->
-          <div class="card-icon">◉</div>
-          <div class="card-no">01</div>
-          <h3 class="card-title">Uxie</h3>
-          <div class="card-role">Founder &amp; builder</div>
-          <p class="card-body">Press a key, speak, &amp; clean text appears anywhere you type. Streaming <strong>Deepgram Nova‑3</strong> with interim transcripts &amp; dispatch‑on‑release. Ships signed for <strong>Mac &amp; Windows</strong>, same version, same day.</p>
-          <div class="card-stat"><strong>~300ms</strong> perceived latency · <strong>v1.0.12+</strong> shipping</div>
-          <a class="card-link" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie ↗</a>
-        </article>
+          <article class="work-card" data-accent="amber">
+            <div class="card-meta">
+              <span class="card-no">01</span>
+              <span class="card-years">2024 — NOW</span>
+            </div>
+            <div class="card-icon-frame"><span>◉</span></div>
+            <h3 class="card-title">Uxie</h3>
+            <div class="card-role">FOUNDER &amp; BUILDER</div>
+            <p class="card-body">Press a key, speak, and clean text appears anywhere you type. Streaming <strong>Deepgram Nova‑3</strong> with interim transcripts and dispatch‑on‑release. Ships signed for <strong>Mac &amp; Windows</strong>, same version, same day.</p>
+            <a class="card-pill" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie <span>↗</span></a>
+          </article>
 
-        <article class="card">
-          <div class="card-icon">✦</div>
-          <div class="card-no">02</div>
-          <h3 class="card-title">Company Brain</h3>
-          <div class="card-role">Founder &amp; builder</div>
-          <p class="card-body">A per‑employee brain, native to Slack. Six wedge use cases, picked carefully. Local agent in P1, <strong>MCP day one</strong>, voice intentionally left out of v1. Not a chatbot — a brain.</p>
-          <div class="card-stat"><strong>Slack‑first</strong> · <strong>MCP‑native</strong> · private by default</div>
-          <a class="card-link" href="#contact">Get early access ↗</a>
-        </article>
+          <article class="work-card" data-accent="blue">
+            <div class="card-meta">
+              <span class="card-no">02</span>
+              <span class="card-years">2026 — NOW</span>
+            </div>
+            <div class="card-icon-frame"><span>✦</span></div>
+            <h3 class="card-title">Company Brain</h3>
+            <div class="card-role">FOUNDER &amp; BUILDER</div>
+            <p class="card-body">A per‑employee brain, native to <strong>Slack</strong>. Six wedge use cases, picked carefully. Local agent in P1, <strong>MCP day one</strong>, voice intentionally left out of v1. Not a chatbot — a brain.</p>
+            <a class="card-pill" href="#contact">Get early access <span>↗</span></a>
+          </article>
 
-        <article class="card">
-          <div class="card-icon">◐</div>
-          <div class="card-no">03</div>
-          <h3 class="card-title">Smallest.ai</h3>
-          <div class="card-role">Real‑time voice infra</div>
-          <p class="card-body">Worked on the unglamorous plumbing that makes voice agents not feel like a phone tree. TTS, STT, WebSockets, jitter buffers, cutting milliseconds. Production voice at scale.</p>
-          <div class="card-stat">Realtime pipelines · sub‑second response · production scale</div>
-          <a class="card-link" href="https://smallest.ai" target="_blank" rel="noopener">Visit Smallest ↗</a>
-        </article>
+          <article class="work-card" data-accent="violet">
+            <div class="card-meta">
+              <span class="card-no">03</span>
+              <span class="card-years">2024 — 2026</span>
+            </div>
+            <div class="card-icon-frame"><span>◐</span></div>
+            <h3 class="card-title">Smallest.ai</h3>
+            <div class="card-role">REAL‑TIME VOICE INFRA</div>
+            <p class="card-body">Worked on the unglamorous plumbing that makes voice agents not feel like a phone tree. <strong>TTS</strong>, <strong>STT</strong>, WebSockets, jitter buffers — cutting milliseconds for production voice at scale.</p>
+            <a class="card-pill" href="https://smallest.ai" target="_blank" rel="noopener">Visit Smallest <span>↗</span></a>
+          </article>
 
-        <article class="card">
-          <div class="card-icon">◇</div>
-          <div class="card-no">04</div>
-          <h3 class="card-title">Side things</h3>
-          <div class="card-role">Always shipping</div>
-          <p class="card-body">A SpaceX‑themed voice‑commanded <strong>3D portfolio</strong> with a Blender MCP bridge. Tiny tools that test ideas before they become products. The best ones graduate.</p>
-          <div class="card-stat">In the workshop · 2025 — now</div>
-          <span class="card-link muted">Polaroids only</span>
-        </article>
+          <article class="work-card" data-accent="green">
+            <div class="card-meta">
+              <span class="card-no">04</span>
+              <span class="card-years">2025 — NOW</span>
+            </div>
+            <div class="card-icon-frame"><span>◇</span></div>
+            <h3 class="card-title">Side things</h3>
+            <div class="card-role">ALWAYS SHIPPING</div>
+            <p class="card-body">A SpaceX‑themed voice‑commanded <strong>3D portfolio</strong> with a Blender MCP bridge. Tiny tools that test ideas before they become products. The best ones graduate.</p>
+            <span class="card-pill muted">Polaroids only</span>
+          </article>
 
-      </div>
-      <div class="rail-controls" aria-hidden="true">
-        <button class="rail-btn" data-dir="-1" aria-label="Previous">←</button>
-        <button class="rail-btn" data-dir="1" aria-label="Next">→</button>
+        </div>
       </div>
     </div>
   </section>
@@ -346,27 +348,70 @@
     });
   }, 1200);
 
-  // Rail: drag-to-scroll + arrow keys + buttons
+  // ----------------------------------------------------------
+  // Selected Work — scroll-pinned horizontal translate.
+  // Page scrolls vertically; the row translates horizontally
+  // by the same number of pixels as the row's overflow width.
+  // Stage height = overflow distance + viewport height so the
+  // sticky element finishes pinning exactly when the row finishes
+  // translating.
+  // ----------------------------------------------------------
   (function(){
-    var rail = document.getElementById('rail');
-    if (!rail) return;
-    var isDown = false, startX = 0, scrollStart = 0;
-    rail.addEventListener('mousedown', function(e){
-      if (document.body.classList.contains('editing')) return;
-      isDown = true; startX = e.pageX; scrollStart = rail.scrollLeft; rail.classList.add('drag');
-    });
-    window.addEventListener('mouseup', function(){ isDown = false; rail.classList.remove('drag'); });
-    window.addEventListener('mousemove', function(e){ if (!isDown) return; rail.scrollLeft = scrollStart - (e.pageX - startX); });
-    rail.addEventListener('keydown', function(e){
-      if (e.key === 'ArrowRight') rail.scrollBy({left: 360, behavior: 'smooth'});
-      if (e.key === 'ArrowLeft')  rail.scrollBy({left: -360, behavior: 'smooth'});
-    });
-    document.querySelectorAll('.rail-btn').forEach(function(b){
-      b.addEventListener('click', function(){
-        var d = parseInt(b.dataset.dir, 10) || 1;
-        rail.scrollBy({left: 360 * d, behavior: 'smooth'});
+    var stage = document.getElementById('work-stage');
+    var row   = document.getElementById('work-row');
+    if (!stage || !row) return;
+
+    var distance = 0; // px the row needs to translate left
+    var rafId = 0;
+
+    function measure(){
+      // Skip when laid out flat (edit mode or mobile)
+      if (document.body.classList.contains('editing') || window.innerWidth <= 820){
+        stage.style.height = '';
+        row.style.transform = '';
+        distance = 0;
+        return;
+      }
+      var rowWidth = row.scrollWidth;
+      var vw       = window.innerWidth;
+      // Only translate as much as needed to bring the last card flush
+      // to the right edge (with some visual breathing room).
+      distance = Math.max(0, rowWidth - vw + 24);
+      // Stage height controls how much vertical scroll is "spent"
+      // on the horizontal motion. 1:1 ratio + 100vh sticky window.
+      stage.style.height = (window.innerHeight + distance) + 'px';
+      update();
+    }
+
+    function update(){
+      if (!distance) return;
+      var rect = stage.getBoundingClientRect();
+      var p = -rect.top / distance;
+      if (p < 0) p = 0;
+      if (p > 1) p = 1;
+      row.style.transform = 'translate3d(' + (-p * distance) + 'px, 0, 0)';
+    }
+
+    function onScroll(){
+      if (rafId) return;
+      rafId = requestAnimationFrame(function(){
+        rafId = 0;
+        update();
       });
-    });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', measure);
+    // Re-measure on font load (Instrument Serif is big — width changes
+    // when the webfont swaps in).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure);
+    }
+    measure();
+
+    // Re-measure when edit mode flips the layout
+    var mo = new MutationObserver(function(){ measure(); });
+    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   })();
 
   // ============================================================
@@ -380,7 +425,8 @@
       '.hero-meta .label', '.hero-meta div > div:nth-child(2)',
       '.manifesto', '.manifesto-sign',
       '.section-title', '.section-sub',
-      '.card-title', '.card-role', '.card-body', '.card-stat', '.card-link', '.card-no',
+      '.card-title', '.card-role', '.card-body', '.card-pill', '.card-no', '.card-years',
+      '.work-title',
       '.cell em', '.cell span',
       '.recog-name', '.recog-sub', '.recog-year',
       '.writing-body', '.writing-num',
@@ -391,7 +437,7 @@
       '.footer > div'
     ].join(',');
 
-    var IMAGE_TILES = '.cell, .off-card, .card .card-icon, .card .card-media';
+    var IMAGE_TILES = '.cell, .off-card, .work-card .card-icon-frame, .work-card .card-media';
     var STORAGE_KEY = 'portfolio:body-html:v1';
     var PAD_KEY     = 'portfolio:section-pad:v1';
     var TILE_TARGET = null;
@@ -528,8 +574,8 @@
     });
 
     function applyImageToTile(tile, dataUrl, name){
-      // Card icon → upgrade to card-media slot
-      if (tile.classList.contains('card-icon')){
+      // Icon-frame on a work-card → upgrade to card-media slot
+      if (tile.classList.contains('card-icon-frame') || tile.classList.contains('card-icon')){
         var media = document.createElement('div');
         media.className = 'card-media';
         var img = document.createElement('img');

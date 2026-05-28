@@ -276,13 +276,14 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 }
 
 .card-media {
-  width: 100%;
-  height: 180px;
-  border-radius: 6px;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--paper);
   border: 1px solid var(--line);
-  margin-bottom: 8px;
+  margin: 12px 0 4px;
+  position: relative;
 }
 .card-media img {
   width: 100%;
@@ -331,110 +332,205 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 }
 
 /* ============================================================
-   03 Selected Work — horizontal rail
+   03 Selected Work — scroll-pinned horizontal stage
    ============================================================ */
-.rail-wrap { position: relative; }
-.rail {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(360px, 380px);
-  gap: 20px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  padding: 4px 4px 24px;
-  margin: 0 -4px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
-  outline: none;
+/* Cancel the section's max-width + side padding so the row spans
+   the full viewport. Vertical padding stays for top/bottom rhythm. */
+.section-work {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
 }
-.rail::-webkit-scrollbar { height: 6px; }
-.rail::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
-.rail.drag { cursor: grabbing; user-select: none; }
 
-.card {
-  scroll-snap-align: start;
-  background: var(--tile);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 32px;
+.work-stage {
+  position: relative;
+  /* Height is overridden by JS based on row width. Fallback for no-JS. */
+  height: 360vh;
+}
+.work-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.work-row {
+  display: flex;
+  gap: 24px;
+  padding: 0 6vw;
+  height: 78vh;
+  min-height: 560px;
+  align-items: stretch;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Intro panel — same shape as a card, no background */
+.work-intro {
+  flex: 0 0 480px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  min-height: 460px;
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  justify-content: center;
+  padding: 32px 8px;
+  gap: 28px;
 }
-.card:hover { transform: translateY(-4px); background: var(--tile-2); border-color: var(--ink); }
-
-.card-icon {
+.work-intro .section-head { margin-bottom: 0; }
+.work-title {
+  font-family: "Instrument Serif", ui-serif, Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(48px, 5.6vw, 84px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--ink);
+}
+.work-title em { font-family: inherit; font-style: italic; }
+.work-cue {
+  font-family: "Instrument Serif", ui-serif, Georgia, serif;
   font-size: 28px;
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  margin-top: 8px;
+}
+
+/* Card */
+.work-card {
+  flex: 0 0 580px;
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  margin-bottom: 8px;
+  border-radius: 28px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 30px 80px -40px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
 }
-.card-no {
-  font-size: 11px;
+html[data-theme="dark"] .work-card {
+  background: var(--tile);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 30px 80px -40px rgba(0,0,0,0.6);
+}
+
+/* Soft tinted aura per project — drives the colored vibe in the screenshot */
+.work-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 0% 0%, var(--card-accent-soft, transparent) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.work-card > * { position: relative; z-index: 1; }
+
+/* Per-accent palettes (light + dark variants) */
+.work-card[data-accent="amber"]  { --card-accent: #c2410c; --card-accent-soft: rgba(251, 191, 36, 0.22); }
+.work-card[data-accent="blue"]   { --card-accent: #1d4ed8; --card-accent-soft: rgba(59, 130, 246, 0.18); }
+.work-card[data-accent="violet"] { --card-accent: #6d28d9; --card-accent-soft: rgba(167, 139, 250, 0.22); }
+.work-card[data-accent="green"]  { --card-accent: #047857; --card-accent-soft: rgba(52, 211, 153, 0.20); }
+html[data-theme="dark"] .work-card[data-accent="amber"]  { --card-accent: #fbbf24; --card-accent-soft: rgba(251, 191, 36, 0.10); }
+html[data-theme="dark"] .work-card[data-accent="blue"]   { --card-accent: #93c5fd; --card-accent-soft: rgba(59, 130, 246, 0.10); }
+html[data-theme="dark"] .work-card[data-accent="violet"] { --card-accent: #c4b5fd; --card-accent-soft: rgba(167, 139, 250, 0.10); }
+html[data-theme="dark"] .work-card[data-accent="green"]  { --card-accent: #6ee7b7; --card-accent-soft: rgba(52, 211, 153, 0.10); }
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
   letter-spacing: 0.18em;
   color: var(--muted);
 }
+.card-no { color: var(--card-accent, var(--ink)); font-weight: 500; }
+.card-years { font-family: "Inter", sans-serif; }
+
+.card-icon-frame {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--ink);
+  margin: 12px 0 4px;
+}
+html[data-theme="dark"] .card-icon-frame { background: var(--paper); }
+
 .card-title {
-  font-size: 32px;
-  font-weight: 600;
+  font-family: "Instrument Serif", ui-serif, Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(52px, 5.6vw, 80px);
+  line-height: 0.94;
   letter-spacing: -0.02em;
   margin: 0;
-  line-height: 1;
+  color: var(--ink);
 }
 .card-role {
-  font-family: "Instrument Serif", ui-serif, Georgia, serif;
-  font-style: italic;
-  color: var(--muted);
-  font-size: 17px;
-  margin-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  color: var(--card-accent);
+  text-transform: uppercase;
+  margin-bottom: 4px;
 }
 .card-body {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.55;
   color: var(--ink-2);
   margin: 0;
   flex: 1;
+  max-width: 44ch;
 }
-.card-stat {
-  font-size: 13px;
-  color: var(--muted);
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-}
-.card-link {
-  align-self: flex-start;
-  font-size: 14px;
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: 2px;
-}
-.card-link.muted { color: var(--muted); border-bottom-color: var(--line); cursor: default; }
 
-.rail-controls {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 12px;
-}
-.rail-btn {
-  width: 36px;
-  height: 36px;
+.card-pill {
+  align-self: flex-start;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 24px;
   border-radius: 999px;
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--ink);
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.2s ease;
+  border-bottom: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
-.rail-btn:hover { background: var(--tile); }
+.card-pill:hover { opacity: 0.88; transform: translateY(-2px); border-bottom-color: transparent !important; }
+.card-pill span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+}
+.card-pill.muted { background: transparent; color: var(--muted); border: 1px solid var(--line); cursor: default; }
+.card-pill.muted:hover { transform: none; opacity: 1; }
+
+/* Edit-mode: flatten the scroll-pin so cards lay out as a grid */
+body.editing .work-stage { height: auto; }
+body.editing .work-sticky { position: static; height: auto; overflow: visible; }
+body.editing .work-row {
+  transform: none !important;
+  flex-wrap: wrap;
+  height: auto;
+  padding: 0 6vw;
+  justify-content: flex-start;
+}
+body.editing .work-card,
+body.editing .work-intro { flex-basis: 520px; flex-shrink: 1; }
 
 /* ============================================================
    04 Recognition / Shipping Log
@@ -759,6 +855,14 @@ html[data-theme="dark"] .edit-bar-inner {
   .section { padding: calc(var(--section-pad) * 0.7) 24px; }
   .hero-meta { grid-template-columns: 1fr; gap: 18px; }
   .hero-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Disable scroll-pin on mobile — stack vertically */
+  .work-stage { height: auto !important; }
+  .work-sticky { position: static; height: auto; overflow: visible; }
+  .work-row { flex-direction: column; height: auto; padding: 0 24px; gap: 20px; transform: none !important; }
+  .work-intro { flex: 0 0 auto; padding: 16px 0; }
+  .work-card { flex: 0 0 auto; padding: 32px; border-radius: 20px; }
+  .work-title { font-size: clamp(40px, 9vw, 56px); }
+  .card-title { font-size: clamp(40px, 9vw, 60px); }
   .rail { grid-auto-columns: 84%; }
   .recog li { grid-template-columns: 1fr; gap: 4px; }
   .recog-year { text-align: left; }
