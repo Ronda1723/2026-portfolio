@@ -288,7 +288,7 @@ html[data-theme="dark"] .hero-head .section-no { color: #93c5fd; }
 /* Stage: huge name centered, polaroids absolutely positioned around */
 .hero-stage {
   position: relative;
-  min-height: 60vh;
+  min-height: 78vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -310,16 +310,17 @@ html[data-theme="dark"] .hero-head .section-no { color: #93c5fd; }
   white-space: nowrap;
 }
 
-/* Polaroids layer */
+/* Polaroids layer — extends past the stage so corners can sit
+   off-edge for that "scattered on a desk" feel */
 .polaroids {
   position: absolute;
-  inset: -40px -40px;
+  inset: -20px -60px;
   pointer-events: none;
   z-index: 1;
 }
 .polaroid {
   position: absolute;
-  width: clamp(120px, 11vw, 180px);
+  width: clamp(110px, 10vw, 160px);
   background: #ffffff;
   padding: 10px 10px 28px;
   border-radius: 3px;
@@ -368,13 +369,14 @@ html[data-theme="dark"] .polaroid {
   margin: 12px 0 0;
 }
 
-/* Positions + rotations — match the screenshot's loose arrangement */
-.polaroid.p1 { top: 6%;  left: 1%;   transform: rotate(-9deg); z-index: 3; }
-.polaroid.p2 { top: 48%; left: -2%;  transform: rotate(5deg);  z-index: 1; }
-.polaroid.p3 { top: 52%; left: 16%;  transform: rotate(-4deg); z-index: 3; }
-.polaroid.p4 { top: 4%;  right: 4%;  transform: rotate(7deg);  z-index: 3; }
-.polaroid.p5 { top: 42%; right: 14%; transform: rotate(-10deg); z-index: 1; }
-.polaroid.p6 { top: 48%; right: 0%;  transform: rotate(11deg); z-index: 1; }
+/* Positions + rotations — clustered at the four corners and side
+   edges so the name in the middle stays uncluttered. */
+.polaroid.p1 { top: 0%;     left: 0%;    transform: rotate(-12deg); z-index: 3; }
+.polaroid.p2 { top: 38%;    left: -5%;   transform: rotate(6deg);   z-index: 1; }
+.polaroid.p3 { bottom: 0%;  left: 5%;    transform: rotate(-6deg);  z-index: 3; }
+.polaroid.p4 { top: 0%;     right: 0%;   transform: rotate(11deg);  z-index: 3; }
+.polaroid.p5 { top: 38%;    right: -5%;  transform: rotate(-11deg); z-index: 1; }
+.polaroid.p6 { bottom: 0%;  right: 5%;   transform: rotate(8deg);   z-index: 1; }
 
 .polaroid:hover {
   transform: rotate(0deg) scale(1.06) translateY(-4px);
@@ -1021,10 +1023,10 @@ html[data-theme="dark"] .edit-bar-inner {
   .polaroid { width: clamp(78px, 22vw, 110px); padding: 6px 6px 20px; }
   .polaroid-cap { font-size: 11px; margin-top: 6px; }
   .polaroid.p3, .polaroid.p5 { display: none; }
-  .polaroid.p1 { top: 0;   left: -2%;  }
-  .polaroid.p2 { top: 62%; left: -4%;  }
-  .polaroid.p4 { top: 0;   right: -2%; }
-  .polaroid.p6 { top: 62%; right: -4%; }
+  .polaroid.p1 { top: 0;       left: -2%;   bottom: auto; }
+  .polaroid.p2 { top: auto;    bottom: 0;   left: -4%; }
+  .polaroid.p4 { top: 0;       right: -2%;  bottom: auto; }
+  .polaroid.p6 { top: auto;    bottom: 0;   right: -4%; }
   .hero-statement { font-size: clamp(20px, 5.4vw, 28px); margin: 40px auto; }
   .hero-scroll { right: 16px; bottom: 12px; }
   /* Disable scroll-pin on mobile — stack vertically */
