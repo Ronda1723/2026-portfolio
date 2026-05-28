@@ -314,7 +314,7 @@ html[data-theme="dark"] .hero-head .section-no { color: #93c5fd; }
    off-edge for that "scattered on a desk" feel */
 .polaroids {
   position: absolute;
-  inset: -20px -60px;
+  inset: -20px -120px;
   pointer-events: none;
   z-index: 1;
 }
@@ -371,12 +371,12 @@ html[data-theme="dark"] .polaroid {
 
 /* Positions + rotations — clustered at the four corners and side
    edges so the name in the middle stays uncluttered. */
-.polaroid.p1 { top: 0%;     left: 0%;    transform: rotate(-12deg); z-index: 3; }
-.polaroid.p2 { top: 38%;    left: -5%;   transform: rotate(6deg);   z-index: 1; }
-.polaroid.p3 { bottom: 0%;  left: 5%;    transform: rotate(-6deg);  z-index: 3; }
-.polaroid.p4 { top: 0%;     right: 0%;   transform: rotate(11deg);  z-index: 3; }
-.polaroid.p5 { top: 38%;    right: -5%;  transform: rotate(-11deg); z-index: 1; }
-.polaroid.p6 { bottom: 0%;  right: 5%;   transform: rotate(8deg);   z-index: 1; }
+.polaroid.p1 { top: 0%;     left: -4%;   transform: rotate(-12deg); z-index: 3; }
+.polaroid.p2 { top: 38%;    left: -10%;  transform: rotate(6deg);   z-index: 1; }
+.polaroid.p3 { bottom: 0%;  left: 0%;    transform: rotate(-6deg);  z-index: 3; }
+.polaroid.p4 { top: 0%;     right: -4%;  transform: rotate(11deg);  z-index: 3; }
+.polaroid.p5 { top: 38%;    right: -10%; transform: rotate(-11deg); z-index: 1; }
+.polaroid.p6 { bottom: 0%;  right: 0%;   transform: rotate(8deg);   z-index: 1; }
 
 .polaroid:hover {
   transform: rotate(0deg) scale(1.06) translateY(-4px);
