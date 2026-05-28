@@ -176,45 +176,11 @@
   </section>
 
   <!-- ===========================================================
-       04 SHIPPING LOG  — EDIT: each <li> = name / sub / year
-       =========================================================== -->
-  <section class="section section-recog">
-    <div class="section-head">
-      <span class="section-no">04</span>
-      <span class="section-name">Shipping Log</span>
-    </div>
-    <h2 class="section-title">Small marks on the wall.</h2>
-
-    <ul class="recog">
-      <li>
-        <div class="recog-name">Uxie v1.0</div>
-        <div class="recog-sub">Mac + Windows, signed &amp; notarized</div>
-        <div class="recog-year">2026</div>
-      </li>
-      <li>
-        <div class="recog-name">Company Brain — kickoff</div>
-        <div class="recog-sub">Vision v4, Slack‑first, MCP day one</div>
-        <div class="recog-year">2026</div>
-      </li>
-      <li>
-        <div class="recog-name">Smallest.ai</div>
-        <div class="recog-sub">Real‑time voice infra at production scale</div>
-        <div class="recog-year">2024 — 2026</div>
-      </li>
-      <li>
-        <div class="recog-name">SpaceX 3D portfolio</div>
-        <div class="recog-sub">Voice‑commanded · Blender MCP bridge</div>
-        <div class="recog-year">2025</div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- ===========================================================
-       05 WRITING  — EDIT: short beliefs / notes
+       04 WRITING  — EDIT: short beliefs / notes
        =========================================================== -->
   <section class="section section-writing">
     <div class="section-head">
-      <span class="section-no">05</span>
+      <span class="section-no">04</span>
       <span class="section-name">Writing</span>
     </div>
     <h2 class="section-title">In notes &amp; in margins.</h2>
@@ -230,12 +196,12 @@
   </section>
 
   <!-- ===========================================================
-       06 OFF THE CLOCK  — EDIT: 3 tiles (image or emoji + caption)
+       05 OFF THE CLOCK  — EDIT: 3 tiles (image or emoji + caption)
        Replace <span>EMOJI</span> with <img src="images/foo.jpg" alt="">
        =========================================================== -->
   <section class="section section-off">
     <div class="section-head">
-      <span class="section-no">06</span>
+      <span class="section-no">05</span>
       <span class="section-name">Off the Clock</span>
     </div>
     <h2 class="section-title">Sometimes I close the laptop — &amp; build something useless instead.</h2>
@@ -251,11 +217,11 @@
   </section>
 
   <!-- ===========================================================
-       07 CONTACT  — EDIT: email + social links
+       06 CONTACT  — EDIT: email + social links
        =========================================================== -->
   <section id="contact" class="section section-contact">
     <div class="section-head">
-      <span class="section-no">07</span>
+      <span class="section-no">06</span>
       <span class="section-name">Contact</span>
     </div>
     <h2 class="section-title big">Let's build something that <em>matters</em>.</h2>
@@ -323,6 +289,9 @@
         // alternative is invisible cards / broken layout.
         if (saved.indexOf('id="work-stage"') !== -1) {
           document.querySelector('main').innerHTML = saved;
+          // Strip removed sections from restored content (e.g. old Shipping Log)
+          var removed = document.querySelector('main .section-recog');
+          if (removed) removed.remove();
         } else {
           localStorage.removeItem(KEY);
         }
