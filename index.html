@@ -69,25 +69,25 @@
     </div>
 
     <div class="hero-stage">
-      <h1 class="hero-name-big" data-draggable="hero-name">Rounak Lenka</h1>
+      <h1 class="hero-name-big">Rounak Lenka</h1>
 
       <!-- EDIT: six polaroids. Each .polaroid-img is an image tile —
            click its camera icon in Edit mode to upload a photo. -->
       <div class="polaroids" aria-hidden="true">
-        <figure class="polaroid p1" data-draggable="polaroid-1"><div class="polaroid-img" data-tone="green"></div></figure>
-        <figure class="polaroid p2" data-draggable="polaroid-2"><div class="polaroid-img" data-tone="sand"></div></figure>
-        <figure class="polaroid p3" data-draggable="polaroid-3"><div class="polaroid-img" data-tone="sky"></div></figure>
-        <figure class="polaroid p4" data-draggable="polaroid-4"><div class="polaroid-img" data-tone="ink"></div></figure>
-        <figure class="polaroid p5" data-draggable="polaroid-5"><div class="polaroid-img" data-tone="violet"></div></figure>
-        <figure class="polaroid p6" data-draggable="polaroid-6"><div class="polaroid-img" data-tone="amber"></div></figure>
+        <figure class="polaroid p1"><div class="polaroid-img" data-tone="green"></div></figure>
+        <figure class="polaroid p2"><div class="polaroid-img" data-tone="sand"></div></figure>
+        <figure class="polaroid p3"><div class="polaroid-img" data-tone="sky"></div></figure>
+        <figure class="polaroid p4"><div class="polaroid-img" data-tone="ink"></div></figure>
+        <figure class="polaroid p5"><div class="polaroid-img" data-tone="violet"></div></figure>
+        <figure class="polaroid p6"><div class="polaroid-img" data-tone="amber"></div></figure>
       </div>
     </div>
 
-    <h2 class="hero-statement" data-draggable="hero-statement">
+    <h2 class="hero-statement">
       To build &amp; to ship &amp; to make things that <em>inspire the way we talk to our machines.</em>
     </h2>
 
-    <div class="hero-meta" data-draggable="hero-meta">
+    <div class="hero-meta">
       <div><div class="label">Role</div><div>Founder &amp; builder, <a class="inline" href="https://uxie.ai" target="_blank" rel="noopener">Uxie</a></div></div>
       <div><div class="label">Where</div><div>India · working globally</div></div>
       <div><div class="label">Since</div><div>2024 — making things every day</div></div>
@@ -107,10 +107,10 @@
       <span class="section-no">02</span>
       <span class="section-name">Manifesto</span>
     </div>
-    <p class="manifesto" data-draggable="manifesto">
+    <p class="manifesto">
       I believe in building tools that <em>respect your attention</em> and <em>remember</em> what matters. Voice is not a chatbot with a mic — it's a different posture toward software. Memory is not a context window — it's the thing that makes a tool feel like it knows you.
     </p>
-    <p class="manifesto-sign" data-draggable="manifesto-sign">Rounak, signing off — from a small desk that taught a kid to ship loudly.</p>
+    <p class="manifesto-sign">Rounak, signing off — from a small desk that taught a kid to ship loudly.</p>
   </section>
 
   <!-- ===========================================================
@@ -133,7 +133,7 @@
             <div class="work-cue" aria-hidden="true">→</div>
           </div>
 
-          <article class="work-card" data-accent="amber" data-draggable="work-card-1">
+          <article class="work-card" data-accent="amber">
             <div class="card-meta">
               <span class="card-no">01</span>
               <span class="card-years">2024 — NOW</span>
@@ -145,7 +145,7 @@
             <a class="card-pill" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie <span>↗</span></a>
           </article>
 
-          <article class="work-card" data-accent="blue" data-draggable="work-card-2">
+          <article class="work-card" data-accent="blue">
             <div class="card-meta">
               <span class="card-no">02</span>
               <span class="card-years">2026 — NOW</span>
@@ -157,7 +157,7 @@
             <a class="card-pill" href="#contact">Get early access <span>↗</span></a>
           </article>
 
-          <article class="work-card" data-accent="violet" data-draggable="work-card-3">
+          <article class="work-card" data-accent="violet">
             <div class="card-meta">
               <span class="card-no">03</span>
               <span class="card-years">2024 — 2026</span>
@@ -169,7 +169,7 @@
             <a class="card-pill" href="https://smallest.ai" target="_blank" rel="noopener">Visit Smallest <span>↗</span></a>
           </article>
 
-          <article class="work-card" data-accent="green" data-draggable="work-card-4">
+          <article class="work-card" data-accent="green">
             <div class="card-meta">
               <span class="card-no">04</span>
               <span class="card-years">2025 — NOW</span>
@@ -218,9 +218,9 @@
     <h2 class="section-title">Sometimes I close the laptop — &amp; build something useless instead.</h2>
 
     <div class="off-grid">
-      <div class="off-card" data-draggable="off-1"><span>3D</span><em>Blender + MCP</em></div>
-      <div class="off-card" data-draggable="off-2"><span>☕</span><em>espresso</em></div>
-      <div class="off-card" data-draggable="off-3"><span>♪</span><em>long walks</em></div>
+      <div class="off-card"><span>3D</span><em>Blender + MCP</em></div>
+      <div class="off-card"><span>☕</span><em>espresso</em></div>
+      <div class="off-card"><span>♪</span><em>long walks</em></div>
     </div>
 
     <p class="off-body">You'll find me building weekend tools, reading about interfaces, and trying to make small software feel like a craft. I'm a firm believer that taste compounds — the tiny details you sweat in v1 become the reason people stay in v3.</p>
@@ -311,18 +311,6 @@
       }
       var pad = localStorage.getItem('portfolio:section-pad:v1');
       if (pad) document.documentElement.style.setProperty('--section-pad', pad + 'px');
-
-      // Restore drag positions
-      var positions = JSON.parse(localStorage.getItem('portfolio:positions:v1') || '{}');
-      Object.keys(positions).forEach(function(id){
-        var el = document.querySelector('[data-draggable="' + id + '"]');
-        if (!el) return;
-        var p = positions[id];
-        if (p && p.length === 2) {
-          el.style.setProperty('--dx', p[0] + 'px');
-          el.style.setProperty('--dy', p[1] + 'px');
-        }
-      });
     } catch(e){}
   })();
 
@@ -487,101 +475,6 @@
         if (on) el.spellcheck = false;
       });
       decorateTiles(on);
-      decorateDraggables(on);
-    }
-
-    // ---------------- Drag (reposition containers) ----------------
-    var POS_KEY = 'portfolio:positions:v1';
-    function loadPositions(){
-      try { return JSON.parse(localStorage.getItem(POS_KEY) || '{}'); }
-      catch(e){ return {}; }
-    }
-    function savePositions(positions){
-      try { localStorage.setItem(POS_KEY, JSON.stringify(positions)); } catch(e){}
-    }
-
-    function decorateDraggables(on){
-      document.querySelectorAll('[data-draggable]').forEach(function(el){
-        var existing = el.querySelector(':scope > .drag-handle');
-        if (on && !existing) {
-          var h = document.createElement('button');
-          h.className = 'drag-handle';
-          h.type = 'button';
-          h.setAttribute('aria-label', 'Drag to reposition');
-          h.innerHTML =
-            '<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">' +
-              '<circle cx="9" cy="6" r="1.4" fill="currentColor"/>' +
-              '<circle cx="15" cy="6" r="1.4" fill="currentColor"/>' +
-              '<circle cx="9" cy="12" r="1.4" fill="currentColor"/>' +
-              '<circle cx="15" cy="12" r="1.4" fill="currentColor"/>' +
-              '<circle cx="9" cy="18" r="1.4" fill="currentColor"/>' +
-              '<circle cx="15" cy="18" r="1.4" fill="currentColor"/>' +
-            '</svg>';
-          h.addEventListener('mousedown', function(ev){ beginDrag(ev, el, h); });
-          el.appendChild(h);
-        } else if (!on && existing) {
-          existing.remove();
-        }
-      });
-    }
-
-    var dragging = null, dragHandle = null;
-    var startMouseX = 0, startMouseY = 0, baseDx = 0, baseDy = 0;
-
-    function readPx(el, prop){
-      var v = el.style.getPropertyValue(prop);
-      return v ? parseFloat(v) : 0;
-    }
-
-    function beginDrag(ev, el, handle){
-      ev.preventDefault();
-      ev.stopPropagation();
-      dragging = el;
-      dragHandle = handle;
-      startMouseX = ev.clientX;
-      startMouseY = ev.clientY;
-      baseDx = readPx(el, '--dx');
-      baseDy = readPx(el, '--dy');
-      el.classList.add('dragging-target');
-      handle.classList.add('active');
-      document.body.classList.add('dragging');
-      editStatus.textContent = 'Dragging ' + (el.dataset.draggable || 'element') + '…';
-      window.addEventListener('mousemove', onDragMove);
-      window.addEventListener('mouseup', endDrag, { once: true });
-    }
-
-    function onDragMove(ev){
-      if (!dragging) return;
-      var dx = baseDx + (ev.clientX - startMouseX);
-      var dy = baseDy + (ev.clientY - startMouseY);
-      // Hold Shift for 8px snap; default is free
-      if (ev.shiftKey) {
-        dx = Math.round(dx / 8) * 8;
-        dy = Math.round(dy / 8) * 8;
-      }
-      dragging.style.setProperty('--dx', dx + 'px');
-      dragging.style.setProperty('--dy', dy + 'px');
-      editStatus.textContent = 'Dragging — ' + Math.round(dx) + ', ' + Math.round(dy) + 'px';
-    }
-
-    function endDrag(){
-      window.removeEventListener('mousemove', onDragMove);
-      if (!dragging) return;
-      var id = dragging.dataset.draggable;
-      var dx = readPx(dragging, '--dx');
-      var dy = readPx(dragging, '--dy');
-      if (id) {
-        var positions = loadPositions();
-        if (dx === 0 && dy === 0) delete positions[id];
-        else positions[id] = [dx, dy];
-        savePositions(positions);
-      }
-      dragging.classList.remove('dragging-target');
-      if (dragHandle) dragHandle.classList.remove('active');
-      document.body.classList.remove('dragging');
-      editStatus.textContent = 'Position saved (' + Math.round(dx) + ', ' + Math.round(dy) + 'px) · Shift = snap to 8px';
-      dragging = null;
-      dragHandle = null;
     }
 
     function decorateTiles(on){
@@ -607,12 +500,7 @@
 
     function persist(){
       try {
-        // Don't bake edit-mode chrome (handles, camera buttons, drag class)
-        // into the autosaved snapshot.
-        var clean = document.querySelector('main').cloneNode(true);
-        clean.querySelectorAll('.drag-handle, .tile-camera').forEach(function(el){ el.remove(); });
-        clean.querySelectorAll('.dragging-target').forEach(function(el){ el.classList.remove('dragging-target'); });
-        localStorage.setItem(STORAGE_KEY, clean.innerHTML);
+        localStorage.setItem(STORAGE_KEY, document.querySelector('main').innerHTML);
         editStatus.textContent = 'Editing — changes saved locally';
       } catch(e){
         editStatus.textContent = 'Editing — local storage full';
@@ -633,8 +521,6 @@
       var clone = document.documentElement.cloneNode(true);
       clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
       clone.querySelectorAll('.tile-camera').forEach(function(el){ el.remove(); });
-      clone.querySelectorAll('.drag-handle').forEach(function(el){ el.remove(); });
-      clone.querySelectorAll('.dragging-target').forEach(function(el){ el.classList.remove('dragging-target'); });
       clone.classList.remove('editing');
       var bodyEl = clone.querySelector('body');
       if (bodyEl) bodyEl.classList.remove('editing');
@@ -649,12 +535,8 @@
     });
 
     btnReset.addEventListener('click', function(){
-      if (!confirm('Discard all local edits (text, images, positions, spacing) and reload?')) return;
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem(POS_KEY);
-        localStorage.removeItem(PAD_KEY);
-      } catch(e){}
+      if (!confirm('Discard all local edits and reload the original?')) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
       location.reload();
     });
 

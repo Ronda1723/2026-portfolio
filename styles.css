@@ -371,16 +371,15 @@ html[data-theme="dark"] .polaroid {
 
 /* Positions + rotations — clustered at the four corners and side
    edges so the name in the middle stays uncluttered. */
-.polaroid.p1 { top: 0%;     left: -4%;   --rot: -12deg; z-index: 3; }
-.polaroid.p2 { top: 38%;    left: -10%;  --rot: 6deg;   z-index: 1; }
-.polaroid.p3 { bottom: 0%;  left: 0%;    --rot: -6deg;  z-index: 3; }
-.polaroid.p4 { top: 0%;     right: -4%;  --rot: 11deg;  z-index: 3; }
-.polaroid.p5 { top: 38%;    right: -10%; --rot: -11deg; z-index: 1; }
-.polaroid.p6 { bottom: 0%;  right: 0%;   --rot: 8deg;   z-index: 1; }
+.polaroid.p1 { top: 0%;     left: -4%;   transform: rotate(-12deg); z-index: 3; }
+.polaroid.p2 { top: 38%;    left: -10%;  transform: rotate(6deg);   z-index: 1; }
+.polaroid.p3 { bottom: 0%;  left: 0%;    transform: rotate(-6deg);  z-index: 3; }
+.polaroid.p4 { top: 0%;     right: -4%;  transform: rotate(11deg);  z-index: 3; }
+.polaroid.p5 { top: 38%;    right: -10%; transform: rotate(-11deg); z-index: 1; }
+.polaroid.p6 { bottom: 0%;  right: 0%;   transform: rotate(8deg);   z-index: 1; }
 
-.polaroid { transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--rot, 0deg)); }
 .polaroid:hover {
-  transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(1.06) translateY(-4px);
+  transform: rotate(0deg) scale(1.06) translateY(-4px);
   z-index: 10;
 }
 
@@ -831,59 +830,6 @@ body.editing .work-intro { flex-basis: 520px; flex-shrink: 1; }
   font-family: "Instrument Serif", ui-serif, Georgia, serif;
   font-style: italic;
   font-size: 14px;
-}
-
-/* ============================================================
-   Draggable containers — translate via CSS vars so other transforms
-   (polaroid rotation) compose cleanly. Polaroid override is above.
-   ============================================================ */
-[data-draggable] { position: relative; }
-[data-draggable]:not(.polaroid) {
-  transform: translate(var(--dx, 0px), var(--dy, 0px));
-}
-
-.drag-handle {
-  position: absolute;
-  top: -14px;
-  left: -14px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--paper);
-  border: 2px solid var(--paper);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  opacity: 0;
-  transform: scale(0.7);
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  z-index: 60;
-  padding: 0;
-  pointer-events: auto;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-.drag-handle svg { display: block; }
-body.editing [data-draggable]:hover > .drag-handle,
-body.editing .drag-handle:hover,
-body.editing .drag-handle.active {
-  opacity: 1;
-  transform: scale(1);
-}
-.drag-handle:active,
-.drag-handle.active { cursor: grabbing; }
-body.dragging,
-body.dragging * {
-  user-select: none !important;
-  -webkit-user-select: none !important;
-}
-body.dragging [contenteditable="true"] { caret-color: transparent; }
-
-/* Dashed outline while dragging shows the element's drag box */
-[data-draggable].dragging-target {
-  outline: 1px dashed var(--ink) !important;
-  outline-offset: 6px;
 }
 
 /* ============================================================
