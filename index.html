@@ -21,30 +21,35 @@
 <body>
 
 <header class="topbar">
-  <!-- EDIT: your monogram / initials -->
-  <a href="#top" class="mark" aria-label="Top">RL</a>
-  <div class="topbar-right">
-    <!-- EDIT: one-line tagline shown in the top bar -->
-    <span class="topbar-tag">Rounak Lenka — Building voice &amp; memory.</span>
+  <!-- EDIT: monogram in a pill with a status dot -->
+  <a href="#top" class="mark-pill" aria-label="Top">
+    <span class="mark-mono">RL</span>
+    <span class="mark-dot" aria-hidden="true"></span>
+  </a>
+
+  <!-- EDIT: "Currently — ..." status line. Wrap the focus word in <em> to italic-emphasize it. -->
+  <div class="topbar-status">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span class="status-text">Currently — building <em>Uxie</em> in India</span>
+  </div>
+
+  <div class="topbar-controls">
     <button id="edit-toggle" class="edit-toggle" aria-label="Toggle edit mode" type="button">
-      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/>
       </svg>
       <span class="edit-label">Edit</span>
     </button>
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" type="button">
-      <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-        <circle cx="12" cy="12" r="4" fill="currentColor"/>
-        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
-          <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
-          <line x1="4.5" y1="4.5" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.5" y2="19.5"/>
-          <line x1="4.5" y1="19.5" x2="6.6" y2="17.4"/><line x1="17.4" y1="6.6" x2="19.5" y2="4.5"/>
-        </g>
-      </svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-        <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="currentColor"/>
-      </svg>
+    <button id="theme-toggle" class="theme-switch" aria-label="Toggle theme" type="button">
+      <span class="theme-track">
+        <svg class="theme-glyph theme-glyph-sun" viewBox="0 0 24 24" width="10" height="10" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" fill="currentColor"/>
+        </svg>
+        <svg class="theme-glyph theme-glyph-moon" viewBox="0 0 24 24" width="10" height="10" aria-hidden="true">
+          <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="theme-thumb"></span>
     </button>
   </div>
 </header>
@@ -52,39 +57,64 @@
 <main id="top">
 
   <!-- ===========================================================
-       01 INDEX  — EDIT: your name, current focus, statement
+       01 INDEX  — felixlee-style hero with scattered polaroids
+       Drop personal photos onto the polaroids via Edit mode →
+       camera icon on each .polaroid-img tile.
        =========================================================== -->
   <section class="section section-hero">
-    <div class="section-head">
+    <div class="section-head hero-head">
       <span class="section-no">01</span>
+      <span class="section-rule" aria-hidden="true"></span>
       <span class="section-name">Index — 2026</span>
     </div>
 
-    <div class="hero-name">Rounak Lenka</div>
-    <div class="hero-current">Currently — building <em>Uxie</em> &amp; <em>Company Brain</em> from India.</div>
+    <div class="hero-stage">
+      <h1 class="hero-name-big">Rounak Lenka</h1>
 
-    <h1 class="hero-statement">
-      To build &amp; to ship &amp; to make <em>quiet software</em> that inspires the way we talk to our machines.
-    </h1>
-
-    <!-- EDIT: hero grid. Each cell can be a typographic tile OR an image.
-         To use an image: drop a file into ./images/ and replace the
-         <em>word</em> with <img src="images/your-file.jpg" alt="..." />.
-         Keep 6 cells for the felixlee.dev layout. -->
-    <div class="hero-grid" aria-hidden="false">
-      <div class="cell"><span>01</span><em>Smallest AI</em></div>
-      <div class="cell"><span>02</span><em>Uxie</em></div>
-      <div class="cell"><span>03</span><em>Upstox</em></div>
-      <div class="cell"><span>04</span><em>Cipla</em></div>
-      <div class="cell"><span>05</span><em>Company Brain</em></div>
-      <div class="cell"><span>06</span><em>About me</em></div>
+      <!-- EDIT: six polaroids. Each .polaroid-img is an image tile —
+           click its camera icon in Edit mode to upload a photo.
+           The .polaroid-cap is the small caption under each. -->
+      <div class="polaroids" aria-hidden="true">
+        <figure class="polaroid p1">
+          <div class="polaroid-img" data-tone="green"></div>
+          <figcaption class="polaroid-cap">Smallest AI</figcaption>
+        </figure>
+        <figure class="polaroid p2">
+          <div class="polaroid-img" data-tone="sand"></div>
+          <figcaption class="polaroid-cap">Uxie</figcaption>
+        </figure>
+        <figure class="polaroid p3">
+          <div class="polaroid-img" data-tone="sky"></div>
+          <figcaption class="polaroid-cap">Upstox</figcaption>
+        </figure>
+        <figure class="polaroid p4">
+          <div class="polaroid-img" data-tone="ink"></div>
+          <figcaption class="polaroid-cap">Cipla</figcaption>
+        </figure>
+        <figure class="polaroid p5">
+          <div class="polaroid-img" data-tone="violet"></div>
+          <figcaption class="polaroid-cap">Company Brain</figcaption>
+        </figure>
+        <figure class="polaroid p6">
+          <div class="polaroid-img" data-tone="amber"></div>
+          <figcaption class="polaroid-cap">Me</figcaption>
+        </figure>
+      </div>
     </div>
 
+    <h2 class="hero-statement">
+      To build &amp; to ship &amp; to make things that <em>inspire the way we talk to our machines.</em>
+    </h2>
+
     <div class="hero-meta">
-      <!-- EDIT: role, location, since -->
       <div><div class="label">Role</div><div>Founder &amp; builder, <a class="inline" href="https://uxie.ai" target="_blank" rel="noopener">Uxie</a></div></div>
       <div><div class="label">Where</div><div>India · working globally</div></div>
       <div><div class="label">Since</div><div>2024 — making things every day</div></div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="hero-scroll-rule"></span>
+      <span>SCROLL</span>
     </div>
   </section>
 
@@ -287,9 +317,11 @@
         // (no #work-stage), discard it so the fresh source renders.
         // Edits to other sections in that old save are lost — but the
         // alternative is invisible cards / broken layout.
-        if (saved.indexOf('id="work-stage"') !== -1) {
+        // Require markers for the *current* hero + work markup. Either
+        // missing → it's a pre-redesign save, drop it.
+        if (saved.indexOf('id="work-stage"') !== -1 &&
+            saved.indexOf('class="polaroids"') !== -1) {
           document.querySelector('main').innerHTML = saved;
-          // Strip removed sections from restored content (e.g. old Shipping Log)
           var removed = document.querySelector('main .section-recog');
           if (removed) removed.remove();
         } else {
@@ -399,16 +431,14 @@
   // ============================================================
   (function(){
     var EDITABLES = [
-      '.mark', '.topbar-tag',
+      '.mark-mono', '.status-text',
       '.section-name', '.section-no',
-      '.hero-name', '.hero-current', '.hero-statement',
+      '.hero-name-big', '.hero-statement', '.polaroid-cap',
       '.hero-meta .label', '.hero-meta div > div:nth-child(2)',
       '.manifesto', '.manifesto-sign',
       '.section-title', '.section-sub',
       '.card-title', '.card-role', '.card-body', '.card-pill', '.card-no', '.card-years',
       '.work-title',
-      '.cell em', '.cell span',
-      '.recog-name', '.recog-sub', '.recog-year',
       '.writing-body', '.writing-num',
       '.off-card em', '.off-card span', '.off-body',
       '.contact-email', '.contact-body',
@@ -417,7 +447,7 @@
       '.footer > div'
     ].join(',');
 
-    var IMAGE_TILES = '.cell, .off-card, .work-card .card-icon-frame, .work-card .card-media';
+    var IMAGE_TILES = '.polaroid-img, .off-card, .work-card .card-icon-frame, .work-card .card-media';
     var STORAGE_KEY = 'portfolio:body-html:v1';
     var PAD_KEY     = 'portfolio:section-pad:v1';
     var TILE_TARGET = null;
