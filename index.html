@@ -26,6 +26,12 @@
   <div class="topbar-right">
     <!-- EDIT: one-line tagline shown in the top bar -->
     <span class="topbar-tag">Rounak Lenka — Building voice &amp; memory.</span>
+    <button id="edit-toggle" class="edit-toggle" aria-label="Toggle edit mode" type="button">
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/>
+      </svg>
+      <span class="edit-label">Edit</span>
+    </button>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" type="button">
       <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
         <circle cx="12" cy="12" r="4" fill="currentColor"/>
@@ -269,6 +275,20 @@
 
 </main>
 
+<!-- Edit-mode toolbar (only visible when editing) -->
+<div class="edit-bar" id="edit-bar" aria-hidden="true">
+  <div class="edit-bar-inner">
+    <span class="edit-status" id="edit-status">Editing — changes saved locally</span>
+    <div class="edit-actions">
+      <button class="edit-btn" id="edit-add-image" type="button">＋ Add image to tile</button>
+      <button class="edit-btn" id="edit-reset" type="button">Reset</button>
+      <button class="edit-btn primary" id="edit-save" type="button">↓ Save HTML</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="edit-file" accept="image/*" hidden>
+
 <footer class="footer">
   <!-- EDIT: footer line + version tag -->
   <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
@@ -300,7 +320,10 @@
     var rail = document.getElementById('rail');
     if (!rail) return;
     var isDown = false, startX = 0, scrollStart = 0;
-    rail.addEventListener('mousedown', function(e){ isDown = true; startX = e.pageX; scrollStart = rail.scrollLeft; rail.classList.add('drag'); });
+    rail.addEventListener('mousedown', function(e){
+      if (document.body.classList.contains('editing')) return;
+      isDown = true; startX = e.pageX; scrollStart = rail.scrollLeft; rail.classList.add('drag');
+    });
     window.addEventListener('mouseup', function(){ isDown = false; rail.classList.remove('drag'); });
     window.addEventListener('mousemove', function(e){ if (!isDown) return; rail.scrollLeft = scrollStart - (e.pageX - startX); });
     rail.addEventListener('keydown', function(e){
@@ -313,6 +336,168 @@
         rail.scrollBy({left: 360 * d, behavior: 'smooth'});
       });
     });
+  })();
+
+  // ============================================================
+  // Edit mode — in-place WYSIWYG (text + images)
+  // ============================================================
+  (function(){
+    var EDITABLES = [
+      '.mark', '.topbar-tag',
+      '.section-name', '.section-no',
+      '.hero-name', '.hero-current', '.hero-statement',
+      '.hero-meta .label', '.hero-meta div > div:nth-child(2)',
+      '.manifesto', '.manifesto-sign',
+      '.section-title', '.section-sub',
+      '.card-title', '.card-role', '.card-body', '.card-stat', '.card-link', '.card-no',
+      '.cell em', '.cell span',
+      '.recog-name', '.recog-sub', '.recog-year',
+      '.writing-body', '.writing-num',
+      '.off-card em', '.off-card span', '.off-body',
+      '.contact-email', '.contact-body',
+      '.contact-foot > span:first-child',
+      '.contact-socials a',
+      '.footer > div'
+    ].join(',');
+
+    var IMAGE_TILES = '.cell, .off-card, .card .card-icon, .card .card-media';
+    var STORAGE_KEY = 'portfolio:body-html:v1';
+    var TILE_TARGET = null;
+
+    var editToggle = document.getElementById('edit-toggle');
+    var editBar    = document.getElementById('edit-bar');
+    var editStatus = document.getElementById('edit-status');
+    var btnSave    = document.getElementById('edit-save');
+    var btnReset   = document.getElementById('edit-reset');
+    var btnAddImg  = document.getElementById('edit-add-image');
+    var fileInput  = document.getElementById('edit-file');
+
+    // Restore saved body innerHTML on load (only the <main>)
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        document.querySelector('main').innerHTML = saved;
+      }
+    } catch(e){}
+
+    function setEditing(on){
+      document.body.classList.toggle('editing', on);
+      editBar.setAttribute('aria-hidden', on ? 'false' : 'true');
+      editToggle.classList.toggle('on', on);
+      editToggle.querySelector('.edit-label').textContent = on ? 'Done' : 'Edit';
+      document.querySelectorAll(EDITABLES).forEach(function(el){
+        el.contentEditable = on ? 'true' : 'false';
+        if (on) el.spellcheck = false;
+      });
+      decorateTiles(on);
+    }
+
+    function decorateTiles(on){
+      document.querySelectorAll(IMAGE_TILES).forEach(function(tile){
+        var existing = tile.querySelector(':scope > .tile-camera');
+        if (on && !existing){
+          var btn = document.createElement('button');
+          btn.className = 'tile-camera';
+          btn.type = 'button';
+          btn.setAttribute('aria-label', 'Add or replace image');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14"><path d="M9 3l-1.5 2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.5L15 3H9zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" fill="currentColor"/></svg>';
+          btn.addEventListener('click', function(ev){
+            ev.preventDefault(); ev.stopPropagation();
+            TILE_TARGET = tile;
+            fileInput.click();
+          });
+          tile.appendChild(btn);
+        } else if (!on && existing){
+          existing.remove();
+        }
+      });
+    }
+
+    function persist(){
+      try {
+        localStorage.setItem(STORAGE_KEY, document.querySelector('main').innerHTML);
+        editStatus.textContent = 'Editing — changes saved locally';
+      } catch(e){
+        editStatus.textContent = 'Editing — local storage full';
+      }
+    }
+
+    document.addEventListener('input', function(e){
+      if (!document.body.classList.contains('editing')) return;
+      if (e.target.closest(EDITABLES)) persist();
+    });
+
+    editToggle.addEventListener('click', function(){
+      setEditing(!document.body.classList.contains('editing'));
+    });
+
+    btnSave.addEventListener('click', function(){
+      // Strip edit-only artifacts and reset contenteditable before serializing
+      var clone = document.documentElement.cloneNode(true);
+      clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
+      clone.querySelectorAll('.tile-camera').forEach(function(el){ el.remove(); });
+      clone.classList.remove('editing');
+      var bodyEl = clone.querySelector('body');
+      if (bodyEl) bodyEl.classList.remove('editing');
+      var html = '<!doctype html>\n' + clone.outerHTML;
+      var blob = new Blob([html], {type: 'text/html'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'index.html';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      editStatus.textContent = 'Downloaded index.html — replace the file in your repo to publish';
+    });
+
+    btnReset.addEventListener('click', function(){
+      if (!confirm('Discard all local edits and reload the original?')) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      location.reload();
+    });
+
+    btnAddImg.addEventListener('click', function(){
+      var sel = document.querySelector(IMAGE_TILES + ':focus, ' + IMAGE_TILES + ':hover');
+      TILE_TARGET = sel || document.querySelector('.cell');
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function(){
+      var f = fileInput.files && fileInput.files[0];
+      if (!f || !TILE_TARGET) return;
+      var reader = new FileReader();
+      reader.onload = function(){
+        var dataUrl = reader.result;
+        applyImageToTile(TILE_TARGET, dataUrl, f.name);
+        persist();
+        TILE_TARGET = null;
+        fileInput.value = '';
+      };
+      reader.readAsDataURL(f);
+    });
+
+    function applyImageToTile(tile, dataUrl, name){
+      // Card icon → upgrade to card-media slot
+      if (tile.classList.contains('card-icon')){
+        var media = document.createElement('div');
+        media.className = 'card-media';
+        var img = document.createElement('img');
+        img.src = dataUrl; img.alt = name || '';
+        media.appendChild(img);
+        tile.replaceWith(media);
+        decorateTiles(true);
+        return;
+      }
+      // card-media, cell, off-card → replace any existing <img>, else append
+      var existing = tile.querySelector(':scope > img');
+      if (existing) {
+        existing.src = dataUrl;
+        existing.alt = name || '';
+      } else {
+        var img2 = document.createElement('img');
+        img2.src = dataUrl; img2.alt = name || '';
+        tile.appendChild(img2);
+      }
+    }
   })();
 </script>
 

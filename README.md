@@ -14,9 +14,27 @@ The page auto-refreshes on hard reload (Cmd+Shift+R). No webpack, no nothing.
 
 ---
 
-## How to edit the copy
+## ⚡ Edit in the browser (Framer-style)
 
-Open [`index.html`](index.html) — every section is wrapped in a comment block like:
+The site has a built-in **in-place edit mode** — no code editor needed.
+
+1. Open the site (locally at http://localhost:5173/ or wherever it's deployed).
+2. Click the **Edit** button in the top-right (next to the theme toggle).
+3. **Click any piece of text** — it becomes editable. Type to change it.
+4. **Click the camera icon** on any tile (hero grid, off-the-clock, project card icons) to upload an image. It's embedded inline — no upload step needed.
+5. Changes auto-save to `localStorage` as you type (the "Editing — changes saved locally" status confirms it).
+6. Click **↓ Save HTML** in the bottom bar to download a fresh `index.html` with your changes baked in. Drop it back into this folder, commit, push.
+7. Click **Reset** to throw away local edits and reload the original.
+
+That's the whole workflow. The downloaded `index.html` is the source of truth — `localStorage` is just the live draft.
+
+> **Heads up on images:** uploads are embedded as base64 inside the HTML. Great for a few photos; if you load 20+ MB of images the file gets big. For lots of images, drop them into `images/` manually and reference with `<img src="images/foo.jpg">` (see [How to add images](#how-to-add-images-manually) below).
+
+---
+
+## How to edit the copy (manually)
+
+If you'd rather edit files directly: open [`index.html`](index.html) — every section is wrapped in a comment block like:
 
 ```html
 <!-- ===========================================================
@@ -42,7 +60,7 @@ Wrap in `<strong>like this</strong>` for bold.
 
 ---
 
-## How to add images
+## How to add images (manually)
 
 1. Drop your image into [`images/`](images/) — e.g. `images/uxie-hero.jpg`. JPGs/PNGs/WebPs all work. Aim for ~1200×900 px.
 2. Reference it in `index.html`.
