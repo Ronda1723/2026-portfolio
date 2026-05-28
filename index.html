@@ -303,6 +303,22 @@
 </footer>
 
 <script>
+  // ----------------------------------------------------------
+  // 1) Restore saved edits BEFORE anything else observes the DOM.
+  //    This avoids a stale-reference bug where the IntersectionObserver
+  //    held onto the original section elements; after innerHTML was
+  //    replaced, the new elements were never observed and stayed at
+  //    opacity:0 (rendering as "blank below the manifesto").
+  // ----------------------------------------------------------
+  (function(){
+    try {
+      var saved = localStorage.getItem('portfolio:body-html:v1');
+      if (saved) document.querySelector('main').innerHTML = saved;
+      var pad = localStorage.getItem('portfolio:section-pad:v1');
+      if (pad) document.documentElement.style.setProperty('--section-pad', pad + 'px');
+    } catch(e){}
+  })();
+
   // Theme toggle
   (function(){
     var btn = document.getElementById('theme-toggle');
@@ -321,6 +337,14 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.section').forEach(function(el){ io.observe(el); });
+
+  // Safety net: any section still hidden after 1.2s gets force-revealed.
+  // Prevents stuck content if the observer ever holds a stale reference.
+  setTimeout(function(){
+    document.querySelectorAll('.section:not(.in)').forEach(function(el){
+      el.classList.add('in');
+    });
+  }, 1200);
 
   // Rail: drag-to-scroll + arrow keys + buttons
   (function(){
