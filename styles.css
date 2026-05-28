@@ -401,23 +401,45 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   margin-top: 8px;
 }
 
+/* Soft tinted backdrop for the whole stage — gives it the felixlee
+   "pastel wash" feel so the white cards have something to float on. */
+.section-work {
+  background:
+    radial-gradient(60% 60% at 15% 30%, rgba(180, 200, 255, 0.18) 0%, transparent 60%),
+    radial-gradient(50% 60% at 90% 20%, rgba(255, 210, 180, 0.16) 0%, transparent 60%),
+    radial-gradient(45% 55% at 70% 90%, rgba(180, 255, 220, 0.14) 0%, transparent 65%);
+}
+html[data-theme="dark"] .section-work {
+  background:
+    radial-gradient(60% 60% at 15% 30%, rgba(120, 140, 200, 0.10) 0%, transparent 60%),
+    radial-gradient(50% 60% at 90% 20%, rgba(200, 150, 120, 0.08) 0%, transparent 60%),
+    radial-gradient(45% 55% at 70% 90%, rgba(120, 200, 170, 0.08) 0%, transparent 65%);
+}
+
 /* Card */
 .work-card {
   flex: 0 0 580px;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background: #ffffff;
+  border: 1px solid rgba(20, 19, 15, 0.06);
   border-radius: 28px;
   padding: 48px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 30px 80px -40px rgba(0,0,0,0.18);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.02),
+    0 30px 60px -30px rgba(20, 19, 15, 0.20),
+    0 8px 20px -8px rgba(20, 19, 15, 0.08);
   position: relative;
   overflow: hidden;
 }
 html[data-theme="dark"] .work-card {
-  background: var(--tile);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 30px 80px -40px rgba(0,0,0,0.6);
+  background: #1a1814;
+  border-color: rgba(255,255,255,0.06);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.02),
+    0 30px 60px -30px rgba(0,0,0,0.7),
+    0 8px 20px -8px rgba(0,0,0,0.4);
 }
 
 /* Soft tinted aura per project — drives the colored vibe in the screenshot */

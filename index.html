@@ -314,8 +314,19 @@
   // ----------------------------------------------------------
   (function(){
     try {
-      var saved = localStorage.getItem('portfolio:body-html:v1');
-      if (saved) document.querySelector('main').innerHTML = saved;
+      var KEY = 'portfolio:body-html:v1';
+      var saved = localStorage.getItem(KEY);
+      if (saved) {
+        // Structural guard: if saved HTML predates the current markup
+        // (no #work-stage), discard it so the fresh source renders.
+        // Edits to other sections in that old save are lost — but the
+        // alternative is invisible cards / broken layout.
+        if (saved.indexOf('id="work-stage"') !== -1) {
+          document.querySelector('main').innerHTML = saved;
+        } else {
+          localStorage.removeItem(KEY);
+        }
+      }
       var pad = localStorage.getItem('portfolio:section-pad:v1');
       if (pad) document.documentElement.style.setProperty('--section-pad', pad + 'px');
     } catch(e){}
@@ -470,13 +481,9 @@
       editStatus.textContent = 'Spacing — ' + v + 'px (saved locally)';
     });
 
-    // Restore saved body innerHTML on load (only the <main>)
-    try {
-      var saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        document.querySelector('main').innerHTML = saved;
-      }
-    } catch(e){}
+    // (Restore already handled by the early script above with a
+    // structural guard. No-op here — kept as a comment so the
+    // sequencing intent is documented.)
 
     function setEditing(on){
       document.body.classList.toggle('editing', on);
