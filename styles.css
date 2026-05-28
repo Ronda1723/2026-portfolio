@@ -242,6 +242,49 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 .cell:hover em,
 .cell:hover span { color: var(--tile-hover-fg); }
 
+/* Image support inside hero grid cells, off-the-clock tiles, and card media.
+   Drop an <img> in and it fills the tile while keeping the label on top. */
+.cell img,
+.off-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  z-index: 0;
+}
+.cell { position: relative; overflow: hidden; }
+.off-card { position: relative; overflow: hidden; }
+.cell > span, .cell > em,
+.off-card > span, .off-card > em { position: relative; z-index: 1; }
+.cell:has(img) span,
+.off-card:has(img) span,
+.off-card:has(img) em {
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+}
+.cell:has(img) em {
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+
+.card-media {
+  width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .hero-meta {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

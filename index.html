@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- EDIT: page title + description (shown in browser tab & link previews) -->
   <title>Rounak Lenka — Building voice & memory.</title>
   <meta name="description" content="Rounak Lenka — founder & builder. Voice AI, agentic memory, polished consumer software." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -10,33 +11,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>
-    // Theme: respect saved → fallback to system. Done inline to avoid FOUC.
     (function(){
       var saved = localStorage.getItem('theme');
       var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      var t = saved || sys;
-      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.setAttribute('data-theme', saved || sys);
     })();
   </script>
 </head>
 <body>
 
 <header class="topbar">
+  <!-- EDIT: your monogram / initials -->
   <a href="#top" class="mark" aria-label="Top">RL</a>
   <div class="topbar-right">
+    <!-- EDIT: one-line tagline shown in the top bar -->
     <span class="topbar-tag">Rounak Lenka — Building voice &amp; memory.</span>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" type="button">
       <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
         <circle cx="12" cy="12" r="4" fill="currentColor"/>
         <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="12" y1="2" x2="12" y2="5"/>
-          <line x1="12" y1="19" x2="12" y2="22"/>
-          <line x1="2" y1="12" x2="5" y2="12"/>
-          <line x1="19" y1="12" x2="22" y2="12"/>
-          <line x1="4.5" y1="4.5" x2="6.6" y2="6.6"/>
-          <line x1="17.4" y1="17.4" x2="19.5" y2="19.5"/>
-          <line x1="4.5" y1="19.5" x2="6.6" y2="17.4"/>
-          <line x1="17.4" y1="6.6" x2="19.5" y2="4.5"/>
+          <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+          <line x1="4.5" y1="4.5" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.5" y2="19.5"/>
+          <line x1="4.5" y1="19.5" x2="6.6" y2="17.4"/><line x1="17.4" y1="6.6" x2="19.5" y2="4.5"/>
         </g>
       </svg>
       <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -48,7 +45,9 @@
 
 <main id="top">
 
-  <!-- 01 INDEX -->
+  <!-- ===========================================================
+       01 INDEX  — EDIT: your name, current focus, statement
+       =========================================================== -->
   <section class="section section-hero">
     <div class="section-head">
       <span class="section-no">01</span>
@@ -62,7 +61,11 @@
       To build &amp; to ship &amp; to make <em>quiet software</em> that inspires the way we talk to our machines.
     </h1>
 
-    <div class="hero-grid" aria-hidden="true">
+    <!-- EDIT: hero grid. Each cell can be a typographic tile OR an image.
+         To use an image: drop a file into ./images/ and replace the
+         <em>word</em> with <img src="images/your-file.jpg" alt="..." />.
+         Keep 6 cells for the felixlee.dev layout. -->
+    <div class="hero-grid" aria-hidden="false">
       <div class="cell"><span>01</span><em>voice</em></div>
       <div class="cell"><span>02</span><em>memory</em></div>
       <div class="cell"><span>03</span><em>latency</em></div>
@@ -72,26 +75,38 @@
     </div>
 
     <div class="hero-meta">
+      <!-- EDIT: role, location, since -->
       <div><div class="label">Role</div><div>Founder &amp; builder, <a class="inline" href="https://uxie.ai" target="_blank" rel="noopener">Uxie</a></div></div>
       <div><div class="label">Where</div><div>India · working globally</div></div>
       <div><div class="label">Since</div><div>2024 — making things every day</div></div>
     </div>
   </section>
 
-  <!-- 02 MANIFESTO -->
+  <!-- ===========================================================
+       02 MANIFESTO  — EDIT: your one-paragraph philosophy
+       =========================================================== -->
   <section class="section section-manifesto">
     <div class="section-head">
       <span class="section-no">02</span>
       <span class="section-name">Manifesto</span>
     </div>
-
     <p class="manifesto">
       I believe in building tools that <em>respect your attention</em> and <em>remember</em> what matters. Voice is not a chatbot with a mic — it's a different posture toward software. Memory is not a context window — it's the thing that makes a tool feel like it knows you.
     </p>
     <p class="manifesto-sign">Rounak, signing off — from a small desk that taught a kid to ship loudly.</p>
   </section>
 
-  <!-- 03 SELECTED WORK -->
+  <!-- ===========================================================
+       03 SELECTED WORK  — EDIT: add/remove .card blocks
+       Each .card needs:
+         .card-media : <img> OR keep the .card-icon glyph
+         .card-no    : 01, 02, 03…
+         .card-title : project name
+         .card-role  : your role / one-liner
+         .card-body  : 2–3 sentence description
+         .card-stat  : metrics line
+         .card-link  : visit URL (or remove if private)
+       =========================================================== -->
   <section class="section section-work">
     <div class="section-head">
       <span class="section-no">03</span>
@@ -104,6 +119,7 @@
       <div class="rail" id="rail" tabindex="0" aria-label="Selected work carousel">
 
         <article class="card">
+          <!-- swap the icon for an image: <div class="card-media"><img src="images/uxie.png" alt="Uxie"></div> -->
           <div class="card-icon">◉</div>
           <div class="card-no">01</div>
           <h3 class="card-title">Uxie</h3>
@@ -151,7 +167,9 @@
     </div>
   </section>
 
-  <!-- 04 RECOGNITION / SHIPPING LOG -->
+  <!-- ===========================================================
+       04 SHIPPING LOG  — EDIT: each <li> = name / sub / year
+       =========================================================== -->
   <section class="section section-recog">
     <div class="section-head">
       <span class="section-no">04</span>
@@ -183,7 +201,9 @@
     </ul>
   </section>
 
-  <!-- 05 WRITING -->
+  <!-- ===========================================================
+       05 WRITING  — EDIT: short beliefs / notes
+       =========================================================== -->
   <section class="section section-writing">
     <div class="section-head">
       <span class="section-no">05</span>
@@ -193,30 +213,18 @@
     <p class="section-sub">A few pieces — from latency obsessions to thoughts on what makes voice products feel alive instead of useful.</p>
 
     <ul class="writing">
-      <li>
-        <span class="writing-num">i.</span>
-        <span class="writing-body">Latency is a feature. Most of the magic happens under 300ms.</span>
-      </li>
-      <li>
-        <span class="writing-num">ii.</span>
-        <span class="writing-body">Voice is not a chatbot with a mic — it's a different posture toward software.</span>
-      </li>
-      <li>
-        <span class="writing-num">iii.</span>
-        <span class="writing-body">Ship the Mac and the Windows build together. Half‑shipped is unshipped.</span>
-      </li>
-      <li>
-        <span class="writing-num">iv.</span>
-        <span class="writing-body">Memory beats prompts. The interesting AI products are the ones that <em>remember</em>.</span>
-      </li>
-      <li>
-        <span class="writing-num">v.</span>
-        <span class="writing-body">Plan before code. Tests on every change. Ask after the second stuck attempt.</span>
-      </li>
+      <li><span class="writing-num">i.</span><span class="writing-body">Latency is a feature. Most of the magic happens under 300ms.</span></li>
+      <li><span class="writing-num">ii.</span><span class="writing-body">Voice is not a chatbot with a mic — it's a different posture toward software.</span></li>
+      <li><span class="writing-num">iii.</span><span class="writing-body">Ship the Mac and the Windows build together. Half‑shipped is unshipped.</span></li>
+      <li><span class="writing-num">iv.</span><span class="writing-body">Memory beats prompts. The interesting AI products are the ones that <em>remember</em>.</span></li>
+      <li><span class="writing-num">v.</span><span class="writing-body">Plan before code. Tests on every change. Ask after the second stuck attempt.</span></li>
     </ul>
   </section>
 
-  <!-- 06 OFF THE CLOCK -->
+  <!-- ===========================================================
+       06 OFF THE CLOCK  — EDIT: 3 tiles (image or emoji + caption)
+       Replace <span>EMOJI</span> with <img src="images/foo.jpg" alt="">
+       =========================================================== -->
   <section class="section section-off">
     <div class="section-head">
       <span class="section-no">06</span>
@@ -234,7 +242,9 @@
     <p class="off-body">I grew up curious, fell in love with shipping things at <strong>Smallest.ai</strong>, and now spend most days at the intersection of voice, agents, and the human bits in between.</p>
   </section>
 
-  <!-- 07 CONTACT -->
+  <!-- ===========================================================
+       07 CONTACT  — EDIT: email + social links
+       =========================================================== -->
   <section id="contact" class="section section-contact">
     <div class="section-head">
       <span class="section-no">07</span>
@@ -260,6 +270,7 @@
 </main>
 
 <footer class="footer">
+  <!-- EDIT: footer line + version tag -->
   <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
   <div class="ver">v1.0 — editorial</div>
 </footer>
@@ -279,10 +290,7 @@
   // Section fade-in
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      if (e.isIntersecting){
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.section').forEach(function(el){ io.observe(el); });
@@ -291,23 +299,14 @@
   (function(){
     var rail = document.getElementById('rail');
     if (!rail) return;
-
     var isDown = false, startX = 0, scrollStart = 0;
-    rail.addEventListener('mousedown', function(e){
-      isDown = true; startX = e.pageX; scrollStart = rail.scrollLeft;
-      rail.classList.add('drag');
-    });
+    rail.addEventListener('mousedown', function(e){ isDown = true; startX = e.pageX; scrollStart = rail.scrollLeft; rail.classList.add('drag'); });
     window.addEventListener('mouseup', function(){ isDown = false; rail.classList.remove('drag'); });
-    window.addEventListener('mousemove', function(e){
-      if (!isDown) return;
-      rail.scrollLeft = scrollStart - (e.pageX - startX);
-    });
-
+    window.addEventListener('mousemove', function(e){ if (!isDown) return; rail.scrollLeft = scrollStart - (e.pageX - startX); });
     rail.addEventListener('keydown', function(e){
       if (e.key === 'ArrowRight') rail.scrollBy({left: 360, behavior: 'smooth'});
       if (e.key === 'ArrowLeft')  rail.scrollBy({left: -360, behavior: 'smooth'});
     });
-
     document.querySelectorAll('.rail-btn').forEach(function(b){
       b.addEventListener('click', function(){
         var d = parseInt(b.dataset.dir, 10) || 1;
