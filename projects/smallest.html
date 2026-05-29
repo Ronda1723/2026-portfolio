@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smallest.ai — Case study · Rounak Lenka</title>
+  <meta name="description" content="Case study — Smallest.ai: real-time voice infrastructure at production scale." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || sys);
+    })();
+  </script>
+</head>
+<body class="case-page">
+
+<header class="topbar case-topbar">
+  <a href="../" class="mark-pill"><span class="mark-mono">RL</span><span class="mark-dot"></span></a>
+  <div class="topbar-status">
+    <span class="status-dot"></span>
+    <span>Case study · <em>Smallest.ai</em></span>
+  </div>
+  <div class="topbar-controls">
+    <a href="../" class="case-back-pill">← All work</a>
+  </div>
+</header>
+
+<main class="case-study">
+
+  <div class="case-meta">
+    <span class="case-tag" data-accent="violet">CASE STUDY · 03</span>
+    <span class="case-year">2024 — 2026</span>
+  </div>
+
+  <h1 class="case-title">Smallest.ai</h1>
+  <p class="case-tagline"><em>Real-time voice infrastructure.</em></p>
+
+  <p class="case-summary">Worked on the unglamorous plumbing that makes voice agents not feel like a phone tree. TTS and STT pipelines, jitter buffers, WebSocket fan-out — all the millisecond-shaving work that makes the difference between "useful" and "alive."</p>
+
+  <div class="case-stats">
+    <div><strong>Real-time</strong><span>streaming pipelines</span></div>
+    <div><strong>Sub-second</strong><span>turn response</span></div>
+    <div><strong>Production</strong><span>voice at scale</span></div>
+  </div>
+
+  <section class="case-section">
+    <h2>The shape of the problem</h2>
+    <p>Voice agents fail in one of two ways: they sound robotic, or they pause too long. Both are about latency budgets. The user's brain decides the agent is "broken" within ~600ms of silence — long before any model can fully compose a response.</p>
+    <p>The win isn't a smarter model. It's tighter plumbing: streaming partial transcripts, predictive endpointing, jitter-tolerant WebSocket frames, and TTS that starts speaking before generation finishes.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>What I worked on</h2>
+    <ul class="case-list">
+      <li>STT streaming with predictive endpoint detection</li>
+      <li>TTS streaming with chunk-level playback</li>
+      <li>Jitter buffers calibrated to mobile vs desktop network profiles</li>
+      <li>WebSocket fan-out for multi-tenant call routing</li>
+      <li>Observability — where milliseconds disappear, and why</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>The lesson I'm taking forward</h2>
+    <p>Latency is not a number — it's a <em>feel</em>. Two systems with identical average latency can feel completely different if their <em>variance</em> differs. A consistent 280ms response feels better than a system that swings between 50ms and 600ms with the same average. Half the work was on the tail of the distribution, not the median.</p>
+  </section>
+
+  <a class="case-cta" href="https://smallest.ai" target="_blank" rel="noopener">Visit Smallest <span>↗</span></a>
+
+</main>
+
+<footer class="footer">
+  <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
+  <div class="ver">v1.0 — editorial</div>
+</footer>
+
+</body>
+</html>

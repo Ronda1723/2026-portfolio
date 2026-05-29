@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Company Brain — Case study · Rounak Lenka</title>
+  <meta name="description" content="Case study — Company Brain: a per-employee brain, native to Slack." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || sys);
+    })();
+  </script>
+</head>
+<body class="case-page">
+
+<header class="topbar case-topbar">
+  <a href="../" class="mark-pill"><span class="mark-mono">RL</span><span class="mark-dot"></span></a>
+  <div class="topbar-status">
+    <span class="status-dot"></span>
+    <span>Case study · <em>Company Brain</em></span>
+  </div>
+  <div class="topbar-controls">
+    <a href="../" class="case-back-pill">← All work</a>
+  </div>
+</header>
+
+<main class="case-study">
+
+  <div class="case-meta">
+    <span class="case-tag" data-accent="blue">CASE STUDY · 02</span>
+    <span class="case-year">2026 — NOW</span>
+  </div>
+
+  <h1 class="case-title">Company Brain</h1>
+  <p class="case-tagline"><em>A per-employee brain, native to Slack.</em></p>
+
+  <p class="case-summary">Not another chatbot. A memory layer that lives where work already happens — Slack threads, meeting transcripts, internal docs — and knows which parts belong to which employee. Six wedge use cases picked carefully. MCP day one. Voice left out of v1 on purpose.</p>
+
+  <div class="case-stats">
+    <div><strong>Slack-first</strong><span>where work happens</span></div>
+    <div><strong>MCP-native</strong><span>plug into any agent</span></div>
+    <div><strong>Per-employee</strong><span>scoped, not shared</span></div>
+  </div>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Every team has the same problem: knowledge lives in <em>people</em>, not in systems. Onboarding is asking around. Decisions get re-litigated because no one remembers the last conversation. Search is broken because it's per-tool, not per-context.</p>
+    <p>The temptation is to build "one chatbot to rule them all." That's the wrong shape. People don't want a chatbot — they want a brain that <em>remembers for them</em>.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>The approach</h2>
+    <p>Six wedge use cases picked carefully — not "answers all questions," but six specific moments where memory beats search:</p>
+    <ol class="case-list">
+      <li><strong>"What did we decide about X?"</strong> — surface the last canonical decision thread.</li>
+      <li><strong>Meeting recall</strong> — what was said, by whom, with action items extracted.</li>
+      <li><strong>Onboarding shortcut</strong> — a personalized FAQ generated from past threads.</li>
+      <li><strong>Context handoff</strong> — when picking up someone else's work, get a focused brief.</li>
+      <li><strong>Standup summarizer</strong> — what changed since last time, per project.</li>
+      <li><strong>Personal log</strong> — a private feed of your own contributions for review/retrospective.</li>
+    </ol>
+    <p>Voice is intentionally <strong>not</strong> in v1. A brain has to feel trustworthy first; voice raises the trust bar and adds latency we don't need to debug yet.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Architecture, briefly</h2>
+    <p>Slack-first ingestion (threads, channels, DMs) with per-employee scope enforcement at the storage layer. <strong>MCP day one</strong> means any compliant agent (Claude, GPT, local) can read the brain as a tool. A local agent runs in P1 — for privacy-sensitive teams who want the embedding/retrieval layer on their hardware.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Where it is now</h2>
+    <p>Vision v4 is locked. We're heads-down on the Slack ingestion pipeline and the per-employee scoping model. Early access opens to a small cohort of design partners first.</p>
+  </section>
+
+  <a class="case-cta" href="../#contact">Get early access <span>→</span></a>
+
+</main>
+
+<footer class="footer">
+  <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
+  <div class="ver">v1.0 — editorial</div>
+</footer>
+
+</body>
+</html>

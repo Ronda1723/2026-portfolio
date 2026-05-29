@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Side things — Case study · Rounak Lenka</title>
+  <meta name="description" content="Case study — weekend experiments, 3D portfolios, MCP bridges." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || sys);
+    })();
+  </script>
+</head>
+<body class="case-page">
+
+<header class="topbar case-topbar">
+  <a href="../" class="mark-pill"><span class="mark-mono">RL</span><span class="mark-dot"></span></a>
+  <div class="topbar-status">
+    <span class="status-dot"></span>
+    <span>Case study · <em>Side things</em></span>
+  </div>
+  <div class="topbar-controls">
+    <a href="../" class="case-back-pill">← All work</a>
+  </div>
+</header>
+
+<main class="case-study">
+
+  <div class="case-meta">
+    <span class="case-tag" data-accent="green">CASE STUDY · 04</span>
+    <span class="case-year">2025 — NOW</span>
+  </div>
+
+  <h1 class="case-title">Side things</h1>
+  <p class="case-tagline"><em>Weekend experiments. The ones that don't graduate yet.</em></p>
+
+  <p class="case-summary">A drawer of small tools — half of them prove a hunch, half of them prove I was wrong. Both kinds are useful. Here are the ones currently in the workshop.</p>
+
+  <section class="case-section">
+    <h2>SpaceX 3D portfolio</h2>
+    <p>A voice-commanded 3D portfolio with a <strong>Blender MCP bridge</strong>. You say "show me the Falcon," and a model loads and orients itself in real time. Mostly a test rig for: can MCP make 3D tooling feel like conversation?</p>
+    <p>Answer: yes for spatial primitives, no for fine-grained material work. Voice is great at "show me," not at "make the bump map 0.04 stronger."</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Weekend MCPs</h2>
+    <p>Small Model Context Protocol servers wrapping personal tools — a journal indexer, a "find that paper I half-read" search, a Linear-but-private clone. Each takes a Saturday. None of them are products. Together they shape what I want a "Company Brain" to feel like.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Why I keep doing this</h2>
+    <p>Side projects are taste calibration. They let me find out what feels right at small scale before committing to it at product scale. The 3D voice command, the per-employee memory shape, the latency obsessions — all of those started as a Saturday.</p>
+    <p>If something here ever graduates, it'll show up as a card on the front page.</p>
+  </section>
+
+  <a class="case-cta muted" href="../#contact">Want to peek? Say hi.</a>
+
+</main>
+
+<footer class="footer">
+  <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
+  <div class="ver">v1.0 — editorial</div>
+</footer>
+
+</body>
+</html>

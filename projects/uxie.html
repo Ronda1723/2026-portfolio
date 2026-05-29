@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Uxie — Case study · Rounak Lenka</title>
+  <meta name="description" content="Case study — Uxie: voice-first writing for Mac & Windows." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || sys);
+    })();
+  </script>
+</head>
+<body class="case-page">
+
+<header class="topbar case-topbar">
+  <a href="../" class="mark-pill"><span class="mark-mono">RL</span><span class="mark-dot"></span></a>
+  <div class="topbar-status">
+    <span class="status-dot"></span>
+    <span>Case study · <em>Uxie</em></span>
+  </div>
+  <div class="topbar-controls">
+    <a href="../" class="case-back-pill">← All work</a>
+  </div>
+</header>
+
+<main class="case-study">
+
+  <div class="case-meta">
+    <span class="case-tag" data-accent="amber">CASE STUDY · 01</span>
+    <span class="case-year">2024 — NOW</span>
+  </div>
+
+  <h1 class="case-title">Uxie</h1>
+  <p class="case-tagline"><em>Voice-first writing for Mac &amp; Windows.</em></p>
+
+  <p class="case-summary">Press a key, speak, and clean text appears anywhere you type. A streaming speech-to-text app with a key cache, interim transcripts, and dispatch-on-release — built so the magic happens under 300ms.</p>
+
+  <div class="case-stats">
+    <div><strong>~300ms</strong><span>perceived latency</span></div>
+    <div><strong>Mac + Win</strong><span>parity, day one</span></div>
+    <div><strong>v1.0.12+</strong><span>shipping continuously</span></div>
+  </div>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Most voice-to-text tools feel like dictation — slow, robotic, broken by punctuation. You speak, you wait, you fix. That's not writing — that's transcription cleanup.</p>
+    <p>I wanted a tool that felt like an extension of typing, not a replacement for it. Press a key, talk for a sentence, release. Text should already be there by the time your finger lifts.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>The approach</h2>
+    <p>Three obsessions: <strong>latency</strong>, <strong>parity</strong>, and <strong>polish</strong>.</p>
+    <p><strong>Latency.</strong> Streaming Deepgram Nova-3 with interim transcripts. The model returns guesses as you speak — we cache the last reliable cut and dispatch on key release. The result: text appears as you let go of the key, not after a round-trip.</p>
+    <p><strong>Parity.</strong> Same version, same day, Mac and Windows. Built on Tauri so the binary's small and the signing pipeline is automatable. No "Mac-first, Windows when we get to it."</p>
+    <p><strong>Polish.</strong> Signed, notarized, no scary unsigned-app dialogs. Quiet menubar app. Hotkey customization that doesn't fight the OS.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>What shipped</h2>
+    <ul class="case-list">
+      <li>Streaming STT pipeline with sub-300ms perceived latency</li>
+      <li>Mac DMG (signed + notarized) and Windows EXE (signed), released as one version</li>
+      <li>Key cache so dispatch-on-release feels instant</li>
+      <li>Per-app hotkey scoping (different shortcut in Slack vs in your editor)</li>
+      <li>Backend on Railway, all keys server-side — never bundled with the app</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>What I'm working on next</h2>
+    <p>Word-level edit gestures (say "scratch that"), per-language model swapping, and a small offline fallback for short utterances. The goal is to keep raising the floor without losing the "press, speak, done" rhythm.</p>
+  </section>
+
+  <a class="case-cta" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie <span>↗</span></a>
+
+</main>
+
+<footer class="footer">
+  <div>© 2026 Rounak Lenka. Made with care &amp; a little chaos.</div>
+  <div class="ver">v1.0 — editorial</div>
+</footer>
+
+</body>
+</html>
