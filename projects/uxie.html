@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Uxie — Case study · Rounak Lenka</title>
-  <meta name="description" content="Case study — Uxie: voice-first writing for Mac & Windows. Press a key, speak, ship." />
+  <meta name="description" content="Case study — Uxie: voice-first AI agent for macOS. Hold fn, speak, ship across Gmail, Calendar, Slack, Drive." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -38,136 +38,353 @@
   </div>
 
   <h1 class="case-title">Uxie</h1>
-  <p class="case-tagline"><em>Voice-first writing for Mac &amp; Windows.</em></p>
+  <p class="case-tagline"><em>Voice-first AI agent for macOS · Mac-native · Single-developer indie</em></p>
 
-  <p class="case-summary">Hold a key. Talk. Let go. Clean text appears wherever your cursor is. Uxie is a small, signed desktop app that turns dictation from a separate workflow into a keystroke — built around a single obsession: it has to feel <em>instant</em>.</p>
+  <p class="case-summary">Uxie is a Mac-native voice agent that lives at the OS layer. Users hold the <code>fn</code> key from any app and speak — Uxie dictates into the focused window, runs agent commands across their connected services (Gmail, Calendar, Drive, Slack), records meetings with both their mic and the other participants' audio, and delivers a synthesized morning brief at a user-chosen time. The product is <em>voice-first, ambient, OS-deep</em> — built for the user category that increasingly resents typing into a chat box to talk to AI. Today: shipping v1.5.1 to a private beta of trusted users via Google OAuth Testing mode. Production launch gated on Google OAuth verification (~6 weeks elapsed) or Composio adoption (instant).</p>
 
   <div class="case-stats">
-    <div><strong>~300ms</strong><span>perceived latency, p95</span></div>
-    <div><strong>Mac + Win</strong><span>shipped same day</span></div>
-    <div><strong>v1.0.12+</strong><span>weekly releases</span></div>
+    <div><strong>v1.5.1</strong><span>shipping in private beta</span></div>
+    <div><strong>5</strong><span>tightly-integrated capabilities</span></div>
+    <div><strong>fn</strong><span>the entire UI surface</span></div>
   </div>
 
-  <!-- DROP IMAGE: replace the placeholder div below with <img src="../images/uxie/hero.png" alt="Uxie in action — menubar app with live transcript" /> -->
-  <figure class="case-figure">
-    <div class="case-figure-img" data-tone="amber"><span>Hero — Uxie running in the menubar with a live transcript bubble</span></div>
-    <figcaption><em>Fig. 1 —</em> The whole product is one keystroke. Hold the hotkey, speak the sentence, release. Text lands where you were already typing.</figcaption>
-  </figure>
-
   <section class="case-section">
-    <h2>The insight</h2>
-    <p>We watched a dozen people use dictation tools — built-in macOS dictation, Whisper Flow, Wispr Flow, native Windows speech. The same shape of complaint kept coming up: <em>"It's faster than typing, but it doesn't feel like typing."</em> The hand had to stop, the cursor had to move, a separate window had to open. The tool wasn't a key on the keyboard — it was a <strong>destination</strong>.</p>
-    <p>The opportunity wasn't in transcription quality (Whisper-class models had already solved that). It was in <strong>fitting into the writing flow people already had</strong>. Make speech a modifier key, not an app.</p>
+    <h2>The Problem</h2>
+    <p>The market has fragmented into point-solution AI tools, each owning one narrow surface:</p>
+    <table class="case-table">
+      <thead>
+        <tr><th>Tool</th><th>What it does</th><th>What it misses</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Granola</td><td>Meeting transcription + summary</td><td>No voice surface, no cross-tool agency</td></tr>
+        <tr><td>Wispr Flow / Superwhisper</td><td>Voice typing</td><td>No memory, no tools, no context</td></tr>
+        <tr><td>ChatGPT desktop</td><td>Chat-bot Q&amp;A</td><td>Sandboxed in a chat window, no OS depth</td></tr>
+        <tr><td>Cursor</td><td>IDE coding agent</td><td>One context, dev-only</td></tr>
+        <tr><td>Multi-On / Operator</td><td>Browser automation</td><td>No local context, fragile</td></tr>
+      </tbody>
+    </table>
+    <p>None of these talk to each other, share memory, or compound. The user has to context-switch between five tools to get one cohesive AI assistant experience.</p>
+    <p>The actual gap: <em>a personal AI that knows the user well enough to be useful and is trusted enough to act on their behalf</em> — across all their tools, with persistent context, voice-first, OS-native. Whoever builds that wins the consumer market for the next decade.</p>
+    <h3>Specific user pain points Uxie addresses</h3>
+    <ol class="case-list">
+      <li><strong>Typing is the wrong primary input for AI.</strong> Speaking is 3-5x faster, frees hands, doesn't break flow. But every existing AI tool defaults to a text box.</li>
+      <li><strong>Meeting notes are still manual</strong> or require a bot to join the call. Granola solved "bot-free" but users want their meetings tied into a larger AI workspace, not a standalone notepad.</li>
+      <li><strong>AI agents are reactive</strong> — they wait to be asked. Users want the AI to wake them up with a morning brief, summarize their day at 6pm, surface that one email they forgot to reply to.</li>
+      <li><strong>"Approve before action"</strong> is a UX afterthought in most tools. Uxie treats it as the central trust mechanism.</li>
+      <li><strong>Existing voice tools have no context.</strong> They transcribe but can't say "reply to the email from Sarah about pricing" because they don't know what that thread says.</li>
+    </ol>
   </section>
 
   <section class="case-section">
-    <h2>Who it's for</h2>
-    <p>Three concentric circles, smallest to largest:</p>
+    <h2>Why Now</h2>
+    <p>Three macros are converging:</p>
+    <ol class="case-list">
+      <li><strong>macOS ScreenCaptureKit + AVCaptureSession (2023+)</strong> made system-audio capture for meeting transcription a privacy-respecting, no-driver-required reality. Granola proved the market for this.</li>
+      <li><strong>STT quality / latency crossed the "good enough to actually transcribe a meeting" threshold</strong> (Deepgram Nova-3, AssemblyAI Universal-2).</li>
+      <li><strong>Tool-use LLMs (GPT-4o, Claude 3.5+)</strong> made it practical to chain "read this email, draft a reply, ship it for approval" across multiple connectors in a single agent turn.</li>
+    </ol>
+    <p>The combination of these three was not available 18 months ago. The window to ship a voice-first, OS-native, agentic Mac app is now.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Direction &amp; Strategy</h2>
+    <h3>The thesis</h3>
+    <blockquote class="case-quote">Context is the product, not the model.</blockquote>
+    <p>Models are fungible (today GPT-4o, tomorrow Sonnet 5, next year a local Llama). What's not fungible is the corpus of the user's data the agent has indexed. The moat is built one transcript, one dictation, one captured meeting at a time. <em>Memory is the only thing that compounds.</em> Build it early; let model quality be someone else's problem.</p>
+
+    <h3>Five concrete bets</h3>
+    <ol class="case-list">
+      <li><strong>Voice-first habit &gt; chatbox UX.</strong> The hotkey is the wedge. Once a user dictates emails for a week, they don't go back.</li>
+      <li><strong>OS-level depth &gt; browser sandbox.</strong> Capture system audio, watch frontmost-app changes, type into any window via Accessibility — the things a Chrome extension or web app fundamentally cannot do.</li>
+      <li><strong>Ambient &gt; reactive.</strong> Scheduled briefings, auto-detected meeting recording, proactive notifications. The product works on the user's behalf while they sleep.</li>
+      <li><strong>Trust through transparency.</strong> Every destructive action (<code>gmail_send</code>, <code>slack_send_message</code>, <code>calendar_create_event</code>) gates on an explicit user approval card — with editable params inline.</li>
+      <li><strong>Patience &gt; velocity.</strong> Granola took 18 months to nail one feature. Uxie is doing four in parallel, but each one is held to "actually-works" quality before shipping. The hotfix-and-bisect cycle is part of the process, not a sign of failure.</li>
+    </ol>
+
+    <h3>What we deliberately rejected</h3>
+    <table class="case-table">
+      <thead>
+        <tr><th>Rejected</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Chatbot Q&amp;A surface</td><td>Lose immediately to ChatGPT</td></tr>
+        <tr><td>Cursor-style IDE agent</td><td>Lose immediately to Cursor</td></tr>
+        <tr><td>Enterprise-first launch</td><td>Consumer love → enterprise drag-in is more durable than top-down sales</td></tr>
+        <tr><td>Browser extension</td><td>OS-level depth is the moat</td></tr>
+        <tr><td>Plugin marketplace</td><td>Premature, too few users</td></tr>
+        <tr><td>Local-only LLM</td><td>Small addressable market until paying customers demand it</td></tr>
+        <tr><td>Generic chat memory</td><td>Memory should surface as part of action, not as a separate "history" tab</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="case-section">
+    <h2>The Solution</h2>
+    <p>Uxie is a single macOS app that bundles five tightly-integrated capabilities. Each capability is one tab in the left rail, plus an always-listening hotkey:</p>
+
+<pre class="case-diagram">
+┌──────────────────────────────────────────────────────────────┐
+│  Sidebar tabs (left rail):                                   │
+│    ⌂  Home          — landing / status                       │
+│    ⚡  Tasks         — background agent tasks                 │
+│    ☀  Briefings     — morning brief / end-of-day / weekly    │
+│    📝 Meetings      — recorded meetings + transcripts        │
+│    📖 Dictionary    — spoken-form → text replacements        │
+│    ✎  Snippets      — text expansion triggers                │
+│                                                              │
+│  Always-on:                                                  │
+│    fn-hotkey         — dictation + voice commands            │
+│    Auto-detect       — watches for Zoom/Slack/Meet windows   │
+│    Cron worker       — fires scheduled briefings on time     │
+└──────────────────────────────────────────────────────────────┘
+</pre>
+
+    <h3>Capability 1 — Voice surface (the wedge)</h3>
+    <p>The user holds <code>fn</code> from any macOS app, speaks, releases. Uxie:</p>
+    <ol class="case-list">
+      <li>Captures bundle ID of the focused app at the moment of press</li>
+      <li>Reads any highlighted text via the Accessibility API</li>
+      <li>Streams mic audio to <code>Deepgram</code> via Railway-issued ephemeral key</li>
+      <li>Runs grammar correction (Groq Llama 3.3 70B for dictation; GPT-4o for commands)</li>
+      <li>Types the corrected text back into the focused app via synthetic <code>CGEvent</code> keypresses</li>
+    </ol>
+    <p>Behavioral split:</p>
     <ul class="case-list">
-      <li><strong>Heavy writers</strong> — engineers in Slack and Linear, founders in Notion, designers in Figma comments. People typing 8+ hours a day who would happily trade a keystroke for a sentence.</li>
-      <li><strong>Multilingual professionals</strong> — speaking is faster than typing in any language; for non-native English typists the speed-up is 3–5×.</li>
-      <li><strong>Anyone with hands that hurt</strong> — a quietly large user base. Voice-as-modifier is meaningfully different from "open the dictation app."</li>
+      <li><strong>Dictation</strong> (no command keyword) → grammar-clean and type into the focused window</li>
+      <li><strong>Command</strong> (e.g., "send Sarah an email saying the proposal looks great") → agent loop with tool-calling, ends with an approval card before any destructive action</li>
+      <li><strong>Transform</strong> (text selected + transform keyword like "polish this") → LLM rewrites the selection in place</li>
     </ul>
-    <p>The early adopter cohort was almost entirely heavy writers. The other two circles came naturally once the product felt fast enough that the floor of "good enough" was no longer in question.</p>
-  </section>
+    <!-- DROP IMAGE: replace placeholder with <img src="../images/uxie/hotkey-floating-capsule.png" alt="Floating dictation capsule anchored to bottom of screen" /> -->
+    <figure class="case-figure">
+      <div class="case-figure-img" data-tone="amber"><span>Floating capsule — translucent dark pill with live waveform + interim transcript</span></div>
+      <figcaption><em>Fig. 1 —</em> A thin, rounded capsule appears anchored to the bottom of the screen the moment <code>fn</code> is pressed. The waveform is generated from real RMS values so users see audio activity in real time.</figcaption>
+    </figure>
 
-  <section class="case-section">
-    <h2>The product, in one sentence</h2>
-    <p>A signed, native desktop app that lives in the menubar (Mac) / system tray (Windows), listens only while you hold a global hotkey, streams audio to a hardened backend, and dispatches the resulting text into whatever app your cursor is in.</p>
-  </section>
+    <h3>Capability 2 — Meetings (Granola-class)</h3>
+    <p>The hard part of voice-first AI. Built around a Swift sub-bundle <code>UxieAudioTap.app</code> inside the main <code>Uxie.app</code>.</p>
+    <p>Pipeline:</p>
+<pre class="case-diagram">
+AVCaptureSession (mic, hw rate)  ─┐
+                                  │ resample → 16 kHz mono Float32
+ScreenCaptureKit  (system audio) ─┘
+                                  ▼
+                          mix sample-by-sample (mic = master clock)
+                          clip → Int16 LE PCM
+                                  ▼
+                          stdout (raw bytes, no header)
+                                  ▼
+                          Python audio_meeting.py
+                          ─ pipe to Deepgram WS (long-form, diarize)
+                          ─ tee to local WAV at ~/miniflow/meetings_audio/&lt;id&gt;.wav
+                                  ▼
+                          Deepgram returns interim + final transcripts
+                                  ▼
+                          appended to SQLite at ~/miniflow/meetings.db
+                          + broadcast "meeting:transcript-update" to UI
+                                  ▼
+                          On "Structure this meeting" click:
+                          → Railway /llm/structure-meeting
+                          → GPT-4o with Granola-style prompt
+                          → returns Markdown: TL;DR / Decisions / Action Items
+</pre>
+    <p>Auto-detection runs as a second mode of the same Swift binary (<code>--watch</code>). Polls <code>SCShareableContent</code> every 5 seconds. Matches window bundle IDs + titles against a curated list of meeting apps (Slack huddle, Zoom Meeting, Teams Meeting, Webex, Google Meet in any browser). When a match appears, fires a native macOS notification with Record / Skip action buttons.</p>
+    <!-- DROP IMAGE: replace placeholder with <img src="../images/uxie/meeting-detection-notification.png" alt="Native macOS notification banner offering to record a detected meeting" /> -->
+    <figure class="case-figure">
+      <div class="case-figure-img" data-tone="sand"><span>Notification banner — "Standup with Smallest team — in 60s" · Record / Skip</span></div>
+      <figcaption><em>Fig. 2 —</em> Native macOS notification banner top-right. Two action buttons: Record (primary, filled) and Skip. Body click opens Uxie's Meetings tab.</figcaption>
+    </figure>
+    <!-- DROP IMAGE: replace placeholder with <img src="../images/uxie/meetings-tab-detail.png" alt="Meetings tab with two-pane layout, transcript, structured notes" /> -->
+    <figure class="case-figure">
+      <div class="case-figure-img" data-tone="sky"><span>Meetings tab — left list with status pills · right pane with transcript, notes, audio player</span></div>
+      <figcaption><em>Fig. 3 —</em> Two-pane layout. Status pills (UPCOMING / RECORDING / TRANSCRIBED / STRUCTURED), action row, user notes, structured notes, transcript, and an inline audio player. Italic gray "currently speaking..." line streams partial transcripts during active recording.</figcaption>
+    </figure>
 
-  <!-- DROP IMAGE: replace below with <img src="../images/uxie/interaction.png" alt="Press to speak interaction diagram" /> -->
-  <figure class="case-figure">
-    <div class="case-figure-img" data-tone="sand"><span>Interaction diagram — keypress → audio capture → streaming STT → release → text dispatch</span></div>
-    <figcaption><em>Fig. 2 —</em> The press/release loop. Dispatching <em>on release</em> instead of after a pause is what makes it feel like a key, not an app.</figcaption>
-  </figure>
-
-  <section class="case-section">
-    <h2>The interaction model</h2>
-    <p>The whole product is one gesture: <strong>press → speak → release</strong>. There's no "start," no "stop," no commit button.</p>
-    <p>Three small design decisions made this feel right:</p>
+    <h3>Capability 3 — Background tasks ("Tasks" tab)</h3>
+    <p>User types a prompt → it runs detached on Railway → polling UI shows live progress → notification on completion.</p>
+    <p>Architecture:</p>
     <ul class="case-list">
-      <li><strong>Dispatch on release, not on silence.</strong> Most tools wait for a pause to decide you're done. Pauses are unreliable (people breathe, hesitate, think). Tying dispatch to the modifier key release gives the user a physical commit gesture — same as letting go of a paint stroke.</li>
-      <li><strong>Hold-to-talk by default, toggle-to-talk as an option.</strong> Hold is the right default for short utterances (the 80% case). Long monologues — meetings, voice notes — get a toggle mode behind a setting.</li>
-      <li><strong>The hotkey is rebindable per app.</strong> One shortcut in Slack, another in your IDE. The OS already has app-scoped state; we just expose it.</li>
+      <li><code>POST /tasks/create</code> returns <code>task_id</code> immediately, fires <code>asyncio.create_task</code> in the background</li>
+      <li>Background loop runs OpenAI tool-calling with the user's connected tools</li>
+      <li>Read-only tools (<code>gmail_search</code>, <code>calendar_list_events</code>, <code>drive_search</code>, <code>slack_search</code>) run freely</li>
+      <li>Destructive tools (<code>gmail_send</code>, <code>slack_send_message</code>, <code>calendar_create_event</code>) park on an <code>asyncio.Event</code> until the user clicks Approve in the inline approval card</li>
+      <li>Each event in the agent loop (thinking, tool_call, tool_result, approval_needed, final_text) is appended to a <code>task_events</code> table; the Mac client polls <code>/tasks/{id}</code> every 2s while running</li>
+      <li>Parallel tool calls within a turn run via <code>asyncio.gather</code> — "summarize my unread Gmail AND check my calendar" fires two workers concurrently</li>
     </ul>
-  </section>
+    <!-- DROP IMAGE: replace placeholder with <img src="../images/uxie/tasks-tab.png" alt="Tasks tab with prompt input and activity log" /> -->
+    <figure class="case-figure">
+      <div class="case-figure-img" data-tone="violet"><span>Tasks tab — prompt input · historical task list · activity log with typed pills</span></div>
+      <figcaption><em>Fig. 4 —</em> Two-pane layout. Left: prompt textarea + <code>⌘↵</code> shortcut + historical tasks. Right: selected task with quoted prompt, polling indicator, Cancel button, and an activity log with color-coded pills for each event type.</figcaption>
+    </figure>
+    <!-- DROP IMAGE: replace placeholder with <img src="../images/uxie/approval-card-inline.png" alt="Inline amber-tinted approval card with editable params" /> -->
+    <figure class="case-figure">
+      <div class="case-figure-img" data-tone="ink"><span>Approval card — amber tint · APPROVAL NEEDED · editable inline params · Approve / Decline</span></div>
+      <figcaption><em>Fig. 5 —</em> Within the activity log, an approval card has an amber-tinted background clearly distinguishing it from normal events. Collapsible "Edit params before approving" section with editable inline form fields.</figcaption>
+    </figure>
 
-  <!-- DROP IMAGE: replace below with <img src="../images/uxie/states.png" alt="Visual states: idle, listening, processing, dispatched" /> -->
-  <figure class="case-figure">
-    <div class="case-figure-img" data-tone="sky"><span>Visual states — idle (subtle dot) · listening (waveform) · processing (pulse) · dispatched (checkmark)</span></div>
-    <figcaption><em>Fig. 3 —</em> Four states, four tiny visual treatments. The menubar icon is the entire UI — there's no popover unless you explicitly open Settings.</figcaption>
-  </figure>
+    <h3>Capability 4 — Scheduled briefings ("Briefings" tab)</h3>
+    <p>Recurring workflows that fire at a user-chosen local time. Three templates ship today:</p>
+    <table class="case-table">
+      <thead>
+        <tr><th>Template</th><th>Default time</th><th>What it does</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Morning Brief</td><td>08:00</td><td>Parallel fans out to Gmail + Calendar + Slack, synthesizes today's schedule + inbox highlights + heads-up</td></tr>
+        <tr><td>End-of-Day Recap</td><td>18:00</td><td>Past-day sent emails + meetings attended → "What you shipped today, what's still open"</td></tr>
+        <tr><td>Weekly Digest</td><td>17:00 Friday</td><td>Past-week sent emails + meetings → "Your week in three bullets, standout meetings, open threads"</td></tr>
+      </tbody>
+    </table>
+    <p>Backend <code>scheduled_tasks</code> table + cron worker on Railway's lifespan polls every 60 seconds. Each template is a generator function in <code>TEMPLATE_REGISTRY</code> — adding a fourth template = one entry in the dict + one generator function.</p>
+    <p>Delivery is dual-channel: macOS notification (banner with the brief's TL;DR) + email via Resend (full Markdown rendered as HTML). User toggles either independently in the time-picker card.</p>
+    <!-- DROP IMAGE: replace placeholder with <img src="../images/uxie/briefings-tab.png" alt="Briefings tab with three template cards stacked vertically" /> -->
+    <figure class="case-figure">
+      <div class="case-figure-img" data-tone="green"><span>Briefings tab — three template cards · time pickers · timezone · notification + email toggles</span></div>
+      <figcaption><em>Fig. 6 —</em> Vertical stack of three template cards. Active cards expand to show time picker, timezone field, delivery toggles, and action buttons (Save changes / Send now / Delete + last-fired timestamp).</figcaption>
+    </figure>
 
-  <section class="case-section">
-    <h2>The states (designer notes)</h2>
-    <p>Most desktop apps over-design state feedback because they have screen real estate to fill. Uxie has none — it lives as a 22px menubar icon. Every state had to be expressible in that single dot.</p>
-    <ul class="case-list">
-      <li><strong>Idle</strong> — outlined circle. Quiet. Forgettable.</li>
-      <li><strong>Listening</strong> — fills with the system accent color, with a subtle 2px ring that pulses softly with input amplitude. No bouncing waveform; that reads as "show-off."</li>
-      <li><strong>Processing</strong> — same fill, but the ring spins. ~400ms max — if it spins longer, something's wrong.</li>
-      <li><strong>Dispatched</strong> — flashes to checkmark, fades back to idle over 220ms. Short enough not to be noise, long enough to confirm.</li>
-      <li><strong>Error</strong> — fills red, then back to idle. Errors are clickable to see what happened; no modal interrupts the writing flow.</li>
-    </ul>
-    <p>Audio cues exist but are off by default. Most heavy writers use headphones for music; a notification chirp on every utterance gets old in an hour.</p>
-  </section>
-
-  <section class="case-section">
-    <h2>Latency: the actual product</h2>
-    <p>Transcription quality plateaued in 2024. What didn't plateau was <em>perceived latency</em>. Everything important about Uxie is downstream of one number: how long between key release and visible text.</p>
-    <p>The combo that landed v1.0.12 at sub-300ms p95:</p>
-    <ul class="case-list">
-      <li><strong>Streaming Deepgram Nova-3.</strong> Returns interim transcripts as you speak. We discard interim cuts and only commit on the final boundary — but the model has already done most of the work by the time you release.</li>
-      <li><strong>Dispatch on release.</strong> Detailed above — turning a "wait for silence" pause into a physical gesture saves 200–400ms perceptually, even if wall-clock is identical.</li>
-      <li><strong>Key cache.</strong> Hotkey state, last clipboard, last cursor position — pre-warmed in memory so dispatch doesn't query the OS. Saves ~20–60ms but, more importantly, removes jitter.</li>
-      <li><strong>Server-side keys.</strong> All Deepgram and LLM calls go through a Railway backend. No client-bundled keys (security), and the round-trip stays inside one trusted hop with auth via Deepgram's <code>Token</code> scheme.</li>
-    </ul>
-  </section>
-
-  <!-- DROP IMAGE: replace below with <img src="../images/uxie/latency.png" alt="Latency budget chart" /> -->
-  <figure class="case-figure">
-    <div class="case-figure-img" data-tone="violet"><span>Latency budget — where every millisecond goes between key release and rendered text</span></div>
-    <figcaption><em>Fig. 4 —</em> The p95 budget. We spend ~140ms on network + STT finalization and ~80ms on OS event dispatch. The remaining ~80ms is buffer.</figcaption>
-  </figure>
-
-  <section class="case-section">
-    <h2>Cross-platform parity, not "Mac-first"</h2>
-    <p>The temptation with consumer-grade software is to ship Mac first, Windows "when we get to it." We ruled this out early. Half our heaviest target users are on Windows (engineers, founders in fintech, anyone whose company issued a Dell). A six-month parity gap would be a six-month gap in trust.</p>
-    <p>The design constraints that fell out of "Mac and Windows on the same day":</p>
-    <ul class="case-list">
-      <li><strong>One binary lineage.</strong> Built on Tauri so the visual layer is web-rendered identically on both, and the native shell handles OS-specific bits (hotkey registration, signing, autostart).</li>
-      <li><strong>Same version, same tag.</strong> Releases ship as <code>v1.0.12</code> on both. Internal rule: a release isn't a release until both signed artifacts (DMG + EXE) are attached to the same GitHub tag.</li>
-      <li><strong>Visual language stays platform-honest.</strong> Mac uses SF Pro, Windows uses Segoe UI Variable. Same layout, same metrics, native typography. No "Mac UI on Windows" or vice versa — that always looks like a beta.</li>
-    </ul>
-  </section>
-
-  <!-- DROP IMAGE: replace below with <img src="../images/uxie/cross-platform.png" alt="Mac + Windows side-by-side" /> -->
-  <figure class="case-figure">
-    <div class="case-figure-img" data-tone="ink"><span>Side-by-side — Mac menubar + Windows system tray, same release, native to each OS</span></div>
-    <figcaption><em>Fig. 5 —</em> Identical capability, native chrome. Same release, same day.</figcaption>
-  </figure>
-
-  <section class="case-section">
-    <h2>What we measure</h2>
-    <p>One north star, four supporting metrics:</p>
-    <ul class="case-list">
-      <li><strong>North star — utterances per active user per day.</strong> If people are reaching for the hotkey, the product works. Vanity DAU doesn't tell us this; sessions can be a single forgotten install.</li>
-      <li><strong>p95 perceived latency.</strong> Capped at 350ms. Anything over goes to a regression triage queue.</li>
-      <li><strong>Dispatch success rate.</strong> % of utterances where text actually landed in the destination app without user retry.</li>
-      <li><strong>D7 retention by activation cohort.</strong> Users who hit ≥5 utterances on day 1 vs. those who didn't — the gap tells us how good the first-run flow is.</li>
-      <li><strong>Crash-free sessions.</strong> Boring, important. The bar is 99.5%.</li>
-    </ul>
+    <h3>Capability 5 — Referral system</h3>
+    <p>Every user gets a unique 8-character referral code at signup. Sharing the link <code>uxie.ai/r/&lt;code&gt;</code> and having a friend activate gives both parties +30 days of Uxie Pro. Stats shown in Settings → Invite tab: friends joined, days earned, current Pro balance, redeem-a-code input for the inverse path.</p>
   </section>
 
   <section class="case-section">
-    <h2>What's next</h2>
+    <h2>Design Principles</h2>
+
+    <h3>1. Mac-native everything</h3>
+    <p>No web app pretending to be a desktop app. Uxie uses real macOS chrome, real notifications, real keychain storage for JWTs, real Accessibility APIs for synthetic typing, real <code>NSWorkspace.frontmostApplication</code> queries. <em>Users feel the platform.</em></p>
+
+    <h3>2. Voice as primary input, visual as fallback</h3>
+    <p>Voice for capture (faster than typing). Visual for approval (faster than listening to "the email reads...do you approve?"). Notch / overlay UI for status. Audio TTS for hands-busy output ("driving home — what happened today?"). The right mode for the moment.</p>
+
+    <h3>3. Warm, low-stakes visual language</h3>
+    <p>Background: <code>#F3F3F1</code> (warm cream). Primary text <code>#1a1a1a</code> (near-black, not pure). Muted text <code>#666-888</code>. Action accents:</p>
     <ul class="case-list">
-      <li><strong>Word-level edit gestures.</strong> "Scratch that," "fix the last sentence." Voice as a small command surface, not just dictation.</li>
-      <li><strong>Per-language model swapping.</strong> Heavy bilingual users want to switch between English and Hindi/Mandarin/etc. without changing settings — detect-and-swap.</li>
-      <li><strong>Offline fallback.</strong> A small on-device model for short utterances when the network is bad. Same UX, lower-quality result, but the gesture still works.</li>
-      <li><strong>Selection-aware rewrites.</strong> Select text → hotkey → "make this less formal." The lift is small; the value is large.</li>
+      <li><strong>Primary actions:</strong> filled near-black background (<code>#1a1a1a</code> bg, white text), 6-8px border radius</li>
+      <li><strong>Secondary actions:</strong> outlined 1px solid <code>#ccc</code> with transparent background</li>
+      <li><strong>Destructive:</strong> outlined 1px solid <code>#d44a4a</code> red</li>
     </ul>
-    <p>The constraint stays the same: anything that doesn't preserve the "press, speak, done" rhythm doesn't ship.</p>
+    <p>Typography stack: system default (<code>-apple-system, BlinkMacSystemFont, "Segoe UI"</code>). 13-15px body, 10-11px section labels in uppercase letterSpacing 0.05 for the "lighting up" effect. Monospace for code/IDs (<code>ui-monospace</code>).</p>
+    <p>Spacing on an 8-point grid. Most cards have 16px internal padding, 12-16px gap between siblings, 24px between sections. <em>The product has a deliberately spare density</em> — not Notion-dense, not Linear-tight. Closer to Granola's calm.</p>
+
+    <h3>4. Status pills as the universal UX vocabulary</h3>
+    <p>Every entity (meeting, task, schedule, OAuth connection) has a status pill. Same shape, same height, same letter-spacing. The user learns the visual grammar once: <em>"amber = needs me, green = healthy, gray = idle, red = broken"</em>. This is how a complex agent product stays cognitively cheap.</p>
+    <table class="case-table">
+      <thead>
+        <tr><th>Status</th><th>Tone</th><th>Color</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Active / Recording / Approved</td><td><span class="case-pill" data-tone="green">healthy</span></td><td><code>#3a8c6a</code> green</td></tr>
+        <tr><td>Idle / Detected / Upcoming</td><td><span class="case-pill" data-tone="blue-gray">idle</span></td><td><code>#5b6878</code> muted blue-gray</td></tr>
+        <tr><td>In progress</td><td><span class="case-pill" data-tone="blue">running</span></td><td><code>#3367d6</code> blue</td></tr>
+        <tr><td>Pending approval</td><td><span class="case-pill" data-tone="amber">needs you</span></td><td><code>#F4A21B</code> amber</td></tr>
+        <tr><td>Errors / Declined</td><td><span class="case-pill" data-tone="red">broken</span></td><td><code>#d44a4a</code> red</td></tr>
+        <tr><td>Structured / Completed</td><td><span class="case-pill" data-tone="purple">done</span></td><td><code>#7a5cd1</code> purple</td></tr>
+      </tbody>
+    </table>
+
+    <h3>5. Approval cards as the central trust mechanism</h3>
+    <p>Every destructive action (sending email, posting Slack, creating calendar event) gates on an approval card with:</p>
+    <ul class="case-list">
+      <li>A clear human-readable summary at the top</li>
+      <li>A collapsible inline editor where users can fix typos in recipient / subject / body before approving</li>
+      <li>Two buttons: Approve (filled), Decline (outlined)</li>
+      <li>5-minute timeout → auto-decline</li>
+    </ul>
+    <p><em>This is more important than the chat history. Trust is earned per approval, not assumed.</em></p>
+
+    <h3>6. Never claim functionality you don't have</h3>
+    <p>If a feature fails (Deepgram 401, Composio rate limit, OAuth scope missing), the error message reaches the user with an actionable next step — not a stack trace, not a vague "something went wrong". Backend translates raw HTTP errors into instructions ("Your Google connection has expired — Settings → Connectors → reconnect"). The LLM passes these through verbatim.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Architecture (at a glance)</h2>
+<pre class="case-diagram">
+┌─────────────────────────────────────────────────────────────┐
+│  miniflow-electron (Electron + React + Vite)                │
+│  ─ Sidebar tabs, popover window, overlay capsule            │
+│  ─ Settings modal, approval cards, audio capture            │
+└───────────────┬─────────────────────────────────────────────┘
+                │ HTTP localhost:8765 + WS
+                ▼
+┌─────────────────────────────────────────────────────────────┐
+│  miniflow-engine (Python FastAPI, PyInstaller bundle)       │
+│  ─ audio.py (Deepgram WS for dictation)                     │
+│  ─ audio_meeting.py (Deepgram long-form for meetings)       │
+│  ─ agent.py (tool-calling agent loop, system prompts)       │
+│  ─ meetings.py (SQLite + cron poll of Google Calendar)      │
+│  ─ meeting_watcher.py (spawns Swift sidecar in --watch)     │
+└───────┬──────────────────┬───────────────────────┬──────────┘
+        │ spawns           │ HTTPS (JWT)           │ pyobjc
+        ▼                  ▼                       ▼
+┌──────────────┐  ┌────────────────┐  ┌─────────────────────┐
+│ UxieAudioTap │  │ Uxie Backend   │  │ macOS frameworks    │
+│ .app (Swift) │  │ FastAPI on     │  │ AVCaptureSession    │
+│ AVCaptureSn  │  │ Railway        │  │ ScreenCaptureKit    │
+│ ScreenCapt   │  │ Postgres       │  │ NSWorkspace         │
+│ Mic + system │  │ + Resend       │  │ AXUIElement         │
+│ → 16k mono   │  │ + Sentry       │  │ CGEvent             │
+│ PCM stdout   │  │ + Cloudflare R2│  └─────────────────────┘
+└──────────────┘  │ + Deepgram     │
+                  │ + Groq + OpenAI│
+                  └────────────────┘
+</pre>
+    <p><strong>Why Railway sits in the middle:</strong> users never see provider API keys. The backend mints short-lived Deepgram tokens, proxies LLM calls through Groq/OpenAI, holds OAuth refresh tokens server-side so the <code>.app</code> bundle has zero secrets. Per-user rate limits + per-tier quotas live in <code>limits.py</code>.</p>
+    <p><strong>Why a Swift sub-bundle for audio:</strong> raw CLI binaries fail TCC silently on macOS — no <code>Info.plist</code> for the system to read usage descriptions from. Wrapping the Swift binary in a tiny <code>UxieAudioTap.app</code> inside <code>Resources/</code> gives TCC something to attach permissions to. This was a multi-iteration discovery (<code>AVAudioEngine</code> vs <code>AVCaptureSession</code>, missing <code>Info.plist</code>, CLI-mode quirks) — documented in detail in <code>STATE.md</code>.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Privacy Stance</h2>
+    <p><em>Local-first by default.</em> Granola's "listens, writes, forgets" architecture but with an explicit opt-in for users who want centralized recordings:</p>
+    <ul class="case-list">
+      <li><strong>Default:</strong> meeting transcripts stay in <code>~/miniflow/meetings.db</code> on the Mac. Audio is retained locally as WAV at <code>~/miniflow/meetings_audio/&lt;id&gt;.wav</code> for replay.</li>
+      <li><strong>Opt-in toggle</strong> in Settings → Account → "Share meetings with admin dashboard". When ON, audio + first 2000 chars of transcript upload to Cloudflare R2 + Railway Postgres for admin review.</li>
+      <li><strong>Voice commands</strong> (short hotkey utterances) discarded after transcription unless admin debug mode is on.</li>
+      <li><strong>OAuth tokens</strong> held server-side on Railway (Postgres), JWT on the Mac in macOS Keychain. The <code>.dmg</code> ships with zero credentials.</li>
+      <li><code>PRIVACY.md</code> + <code>TERMS.md</code> drafted in the repo, ready to host at <code>uxie.ai/privacy</code> and <code>uxie.ai/terms</code> for OAuth verification.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>What We Deferred (and Why)</h2>
+    <table class="case-table">
+      <thead>
+        <tr><th>Deferred</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Boss + worker decomposition for tasks (real multi-agent)</td><td>Parallel tool calls within a turn already cover ~80% of the win</td></tr>
+        <tr><td>iOS companion app</td><td>Repo paused, focus on Mac mainline first</td></tr>
+        <tr><td>Vector memory across meetings + dictations</td><td>Needs daily-active users first to be useful</td></tr>
+        <tr><td>Local LLM option</td><td>Small addressable market, costly to maintain</td></tr>
+        <tr><td>Plugin marketplace</td><td>Premature, requires 100x more users</td></tr>
+        <tr><td>Public Google OAuth verification</td><td>6-week elapsed; planned in parallel with launch prep</td></tr>
+        <tr><td>Stripe billing</td><td>Pro tier hypothetical until paying customer asks</td></tr>
+        <tr><td>Bundle ID rename <code>ai.smallest.uxie</code> → <code>ai.uxie.app</code></td><td>Forces one-time reinstall; planned migration release</td></tr>
+        <tr><td>Notch UI surface</td><td>Visually nice, low product impact</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="case-section">
+    <h2>Roadmap</h2>
+    <h3>Near-term (next 4-8 weeks)</h3>
+    <ul class="case-list">
+      <li>Submit for Google OAuth verification (or migrate sensitive scope handling to Composio as a faster path)</li>
+      <li>Stand up landing page at <code>uxie.ai</code></li>
+      <li>Wire Stripe for Pro tier</li>
+      <li>Expand keyword vocabulary boost (currently hardcoded list) to pull from user's calendar attendees + address book</li>
+      <li>Possibly switch STT provider to AssemblyAI for the latency win in Asia-region users</li>
+    </ul>
+    <h3>Mid-term (3-6 months)</h3>
+    <ul class="case-list">
+      <li><strong>Vector memory layer</strong> — every transcript + dictation + meeting indexed; "what did Mike say about the contract?" becomes a one-sentence voice query</li>
+      <li><strong>Proactive whispers</strong> — "Sarah replied to your email — want to draft a response?" — surfaced as macOS notifications</li>
+      <li>More connectors via Composio (Notion, Linear, Asana) without rebuilding OAuth per provider</li>
+      <li>iOS companion app — read meetings, run tasks from phone</li>
+    </ul>
+    <h3>Long-term</h3>
+    <ul class="case-list">
+      <li><strong>Personal voice / style learning</strong> — Uxie writes emails in the user's voice, not generic LLM voice</li>
+      <li><strong>Workflow gallery</strong> — user-shareable scheduled workflows beyond the three baked-in templates</li>
+      <li><strong>Team features</strong> — shared meeting library, team transcripts (when single-player retention is strong)</li>
+    </ul>
   </section>
 
   <a class="case-cta" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie <span>↗</span></a>
