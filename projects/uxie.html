@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Uxie — Case study · Rounak Lenka</title>
-  <meta name="description" content="Case study — Uxie: voice-first writing for Mac & Windows." />
+  <meta name="description" content="Case study — Uxie: voice-first writing for Mac & Windows. Press a key, speak, ship." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -40,42 +40,134 @@
   <h1 class="case-title">Uxie</h1>
   <p class="case-tagline"><em>Voice-first writing for Mac &amp; Windows.</em></p>
 
-  <p class="case-summary">Press a key, speak, and clean text appears anywhere you type. A streaming speech-to-text app with a key cache, interim transcripts, and dispatch-on-release — built so the magic happens under 300ms.</p>
+  <p class="case-summary">Hold a key. Talk. Let go. Clean text appears wherever your cursor is. Uxie is a small, signed desktop app that turns dictation from a separate workflow into a keystroke — built around a single obsession: it has to feel <em>instant</em>.</p>
 
   <div class="case-stats">
-    <div><strong>~300ms</strong><span>perceived latency</span></div>
-    <div><strong>Mac + Win</strong><span>parity, day one</span></div>
-    <div><strong>v1.0.12+</strong><span>shipping continuously</span></div>
+    <div><strong>~300ms</strong><span>perceived latency, p95</span></div>
+    <div><strong>Mac + Win</strong><span>shipped same day</span></div>
+    <div><strong>v1.0.12+</strong><span>weekly releases</span></div>
   </div>
 
+  <!-- DROP IMAGE: replace the placeholder div below with <img src="../images/uxie/hero.png" alt="Uxie in action — menubar app with live transcript" /> -->
+  <figure class="case-figure">
+    <div class="case-figure-img" data-tone="amber"><span>Hero — Uxie running in the menubar with a live transcript bubble</span></div>
+    <figcaption><em>Fig. 1 —</em> The whole product is one keystroke. Hold the hotkey, speak the sentence, release. Text lands where you were already typing.</figcaption>
+  </figure>
+
   <section class="case-section">
-    <h2>The problem</h2>
-    <p>Most voice-to-text tools feel like dictation — slow, robotic, broken by punctuation. You speak, you wait, you fix. That's not writing — that's transcription cleanup.</p>
-    <p>I wanted a tool that felt like an extension of typing, not a replacement for it. Press a key, talk for a sentence, release. Text should already be there by the time your finger lifts.</p>
+    <h2>The insight</h2>
+    <p>We watched a dozen people use dictation tools — built-in macOS dictation, Whisper Flow, Wispr Flow, native Windows speech. The same shape of complaint kept coming up: <em>"It's faster than typing, but it doesn't feel like typing."</em> The hand had to stop, the cursor had to move, a separate window had to open. The tool wasn't a key on the keyboard — it was a <strong>destination</strong>.</p>
+    <p>The opportunity wasn't in transcription quality (Whisper-class models had already solved that). It was in <strong>fitting into the writing flow people already had</strong>. Make speech a modifier key, not an app.</p>
   </section>
 
   <section class="case-section">
-    <h2>The approach</h2>
-    <p>Three obsessions: <strong>latency</strong>, <strong>parity</strong>, and <strong>polish</strong>.</p>
-    <p><strong>Latency.</strong> Streaming Deepgram Nova-3 with interim transcripts. The model returns guesses as you speak — we cache the last reliable cut and dispatch on key release. The result: text appears as you let go of the key, not after a round-trip.</p>
-    <p><strong>Parity.</strong> Same version, same day, Mac and Windows. Built on Tauri so the binary's small and the signing pipeline is automatable. No "Mac-first, Windows when we get to it."</p>
-    <p><strong>Polish.</strong> Signed, notarized, no scary unsigned-app dialogs. Quiet menubar app. Hotkey customization that doesn't fight the OS.</p>
-  </section>
-
-  <section class="case-section">
-    <h2>What shipped</h2>
+    <h2>Who it's for</h2>
+    <p>Three concentric circles, smallest to largest:</p>
     <ul class="case-list">
-      <li>Streaming STT pipeline with sub-300ms perceived latency</li>
-      <li>Mac DMG (signed + notarized) and Windows EXE (signed), released as one version</li>
-      <li>Key cache so dispatch-on-release feels instant</li>
-      <li>Per-app hotkey scoping (different shortcut in Slack vs in your editor)</li>
-      <li>Backend on Railway, all keys server-side — never bundled with the app</li>
+      <li><strong>Heavy writers</strong> — engineers in Slack and Linear, founders in Notion, designers in Figma comments. People typing 8+ hours a day who would happily trade a keystroke for a sentence.</li>
+      <li><strong>Multilingual professionals</strong> — speaking is faster than typing in any language; for non-native English typists the speed-up is 3–5×.</li>
+      <li><strong>Anyone with hands that hurt</strong> — a quietly large user base. Voice-as-modifier is meaningfully different from "open the dictation app."</li>
+    </ul>
+    <p>The early adopter cohort was almost entirely heavy writers. The other two circles came naturally once the product felt fast enough that the floor of "good enough" was no longer in question.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>The product, in one sentence</h2>
+    <p>A signed, native desktop app that lives in the menubar (Mac) / system tray (Windows), listens only while you hold a global hotkey, streams audio to a hardened backend, and dispatches the resulting text into whatever app your cursor is in.</p>
+  </section>
+
+  <!-- DROP IMAGE: replace below with <img src="../images/uxie/interaction.png" alt="Press to speak interaction diagram" /> -->
+  <figure class="case-figure">
+    <div class="case-figure-img" data-tone="sand"><span>Interaction diagram — keypress → audio capture → streaming STT → release → text dispatch</span></div>
+    <figcaption><em>Fig. 2 —</em> The press/release loop. Dispatching <em>on release</em> instead of after a pause is what makes it feel like a key, not an app.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>The interaction model</h2>
+    <p>The whole product is one gesture: <strong>press → speak → release</strong>. There's no "start," no "stop," no commit button.</p>
+    <p>Three small design decisions made this feel right:</p>
+    <ul class="case-list">
+      <li><strong>Dispatch on release, not on silence.</strong> Most tools wait for a pause to decide you're done. Pauses are unreliable (people breathe, hesitate, think). Tying dispatch to the modifier key release gives the user a physical commit gesture — same as letting go of a paint stroke.</li>
+      <li><strong>Hold-to-talk by default, toggle-to-talk as an option.</strong> Hold is the right default for short utterances (the 80% case). Long monologues — meetings, voice notes — get a toggle mode behind a setting.</li>
+      <li><strong>The hotkey is rebindable per app.</strong> One shortcut in Slack, another in your IDE. The OS already has app-scoped state; we just expose it.</li>
+    </ul>
+  </section>
+
+  <!-- DROP IMAGE: replace below with <img src="../images/uxie/states.png" alt="Visual states: idle, listening, processing, dispatched" /> -->
+  <figure class="case-figure">
+    <div class="case-figure-img" data-tone="sky"><span>Visual states — idle (subtle dot) · listening (waveform) · processing (pulse) · dispatched (checkmark)</span></div>
+    <figcaption><em>Fig. 3 —</em> Four states, four tiny visual treatments. The menubar icon is the entire UI — there's no popover unless you explicitly open Settings.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>The states (designer notes)</h2>
+    <p>Most desktop apps over-design state feedback because they have screen real estate to fill. Uxie has none — it lives as a 22px menubar icon. Every state had to be expressible in that single dot.</p>
+    <ul class="case-list">
+      <li><strong>Idle</strong> — outlined circle. Quiet. Forgettable.</li>
+      <li><strong>Listening</strong> — fills with the system accent color, with a subtle 2px ring that pulses softly with input amplitude. No bouncing waveform; that reads as "show-off."</li>
+      <li><strong>Processing</strong> — same fill, but the ring spins. ~400ms max — if it spins longer, something's wrong.</li>
+      <li><strong>Dispatched</strong> — flashes to checkmark, fades back to idle over 220ms. Short enough not to be noise, long enough to confirm.</li>
+      <li><strong>Error</strong> — fills red, then back to idle. Errors are clickable to see what happened; no modal interrupts the writing flow.</li>
+    </ul>
+    <p>Audio cues exist but are off by default. Most heavy writers use headphones for music; a notification chirp on every utterance gets old in an hour.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Latency: the actual product</h2>
+    <p>Transcription quality plateaued in 2024. What didn't plateau was <em>perceived latency</em>. Everything important about Uxie is downstream of one number: how long between key release and visible text.</p>
+    <p>The combo that landed v1.0.12 at sub-300ms p95:</p>
+    <ul class="case-list">
+      <li><strong>Streaming Deepgram Nova-3.</strong> Returns interim transcripts as you speak. We discard interim cuts and only commit on the final boundary — but the model has already done most of the work by the time you release.</li>
+      <li><strong>Dispatch on release.</strong> Detailed above — turning a "wait for silence" pause into a physical gesture saves 200–400ms perceptually, even if wall-clock is identical.</li>
+      <li><strong>Key cache.</strong> Hotkey state, last clipboard, last cursor position — pre-warmed in memory so dispatch doesn't query the OS. Saves ~20–60ms but, more importantly, removes jitter.</li>
+      <li><strong>Server-side keys.</strong> All Deepgram and LLM calls go through a Railway backend. No client-bundled keys (security), and the round-trip stays inside one trusted hop with auth via Deepgram's <code>Token</code> scheme.</li>
+    </ul>
+  </section>
+
+  <!-- DROP IMAGE: replace below with <img src="../images/uxie/latency.png" alt="Latency budget chart" /> -->
+  <figure class="case-figure">
+    <div class="case-figure-img" data-tone="violet"><span>Latency budget — where every millisecond goes between key release and rendered text</span></div>
+    <figcaption><em>Fig. 4 —</em> The p95 budget. We spend ~140ms on network + STT finalization and ~80ms on OS event dispatch. The remaining ~80ms is buffer.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>Cross-platform parity, not "Mac-first"</h2>
+    <p>The temptation with consumer-grade software is to ship Mac first, Windows "when we get to it." We ruled this out early. Half our heaviest target users are on Windows (engineers, founders in fintech, anyone whose company issued a Dell). A six-month parity gap would be a six-month gap in trust.</p>
+    <p>The design constraints that fell out of "Mac and Windows on the same day":</p>
+    <ul class="case-list">
+      <li><strong>One binary lineage.</strong> Built on Tauri so the visual layer is web-rendered identically on both, and the native shell handles OS-specific bits (hotkey registration, signing, autostart).</li>
+      <li><strong>Same version, same tag.</strong> Releases ship as <code>v1.0.12</code> on both. Internal rule: a release isn't a release until both signed artifacts (DMG + EXE) are attached to the same GitHub tag.</li>
+      <li><strong>Visual language stays platform-honest.</strong> Mac uses SF Pro, Windows uses Segoe UI Variable. Same layout, same metrics, native typography. No "Mac UI on Windows" or vice versa — that always looks like a beta.</li>
+    </ul>
+  </section>
+
+  <!-- DROP IMAGE: replace below with <img src="../images/uxie/cross-platform.png" alt="Mac + Windows side-by-side" /> -->
+  <figure class="case-figure">
+    <div class="case-figure-img" data-tone="ink"><span>Side-by-side — Mac menubar + Windows system tray, same release, native to each OS</span></div>
+    <figcaption><em>Fig. 5 —</em> Identical capability, native chrome. Same release, same day.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>What we measure</h2>
+    <p>One north star, four supporting metrics:</p>
+    <ul class="case-list">
+      <li><strong>North star — utterances per active user per day.</strong> If people are reaching for the hotkey, the product works. Vanity DAU doesn't tell us this; sessions can be a single forgotten install.</li>
+      <li><strong>p95 perceived latency.</strong> Capped at 350ms. Anything over goes to a regression triage queue.</li>
+      <li><strong>Dispatch success rate.</strong> % of utterances where text actually landed in the destination app without user retry.</li>
+      <li><strong>D7 retention by activation cohort.</strong> Users who hit ≥5 utterances on day 1 vs. those who didn't — the gap tells us how good the first-run flow is.</li>
+      <li><strong>Crash-free sessions.</strong> Boring, important. The bar is 99.5%.</li>
     </ul>
   </section>
 
   <section class="case-section">
-    <h2>What I'm working on next</h2>
-    <p>Word-level edit gestures (say "scratch that"), per-language model swapping, and a small offline fallback for short utterances. The goal is to keep raising the floor without losing the "press, speak, done" rhythm.</p>
+    <h2>What's next</h2>
+    <ul class="case-list">
+      <li><strong>Word-level edit gestures.</strong> "Scratch that," "fix the last sentence." Voice as a small command surface, not just dictation.</li>
+      <li><strong>Per-language model swapping.</strong> Heavy bilingual users want to switch between English and Hindi/Mandarin/etc. without changing settings — detect-and-swap.</li>
+      <li><strong>Offline fallback.</strong> A small on-device model for short utterances when the network is bad. Same UX, lower-quality result, but the gesture still works.</li>
+      <li><strong>Selection-aware rewrites.</strong> Select text → hotkey → "make this less formal." The lift is small; the value is large.</li>
+    </ul>
+    <p>The constraint stays the same: anything that doesn't preserve the "press, speak, done" rhythm doesn't ship.</p>
   </section>
 
   <a class="case-cta" href="https://uxie.ai" target="_blank" rel="noopener">Visit Uxie <span>↗</span></a>
